@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thông Tin Người Dùng</title>
-    <link rel="stylesheet" href="../dist/css/output.css" />
+    <link rel="stylesheet" href="../../dist/css/output.css" />
+    <link rel="stylesheet" href="./profile.css" />
   </head>
   <body>
     <div class="min-h-screen bg-orange-950">
@@ -41,7 +42,7 @@
                 >
                 <a
                   href="#"
-                  id="logout"
+                  id="logout-btn"
                   class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >Logout</a
                 >
@@ -78,24 +79,6 @@
       </section>
     </div>
 
-    <script>
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
-        window.location.href = "index.html";
-      } else {
-        document.getElementById("username-display").textContent = user.username;
-        document.getElementById("profile-username").textContent = user.username;
-        document
-          .getElementById("user-menu-button")
-          .addEventListener("click", () => {
-            const menu = document.getElementById("user-menu");
-            menu.classList.toggle("hidden");
-          });
-        document.getElementById("logout").addEventListener("click", () => {
-          localStorage.removeItem("user");
-          window.location.href = "index.html";
-        });
-      }
-    </script>
+    <script src="./profile.js"></script>
   </body>
 </html>
