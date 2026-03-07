@@ -1,0 +1,23 @@
+{
+  "name": "tailwind-project",
+  "version": "1.0.0",
+  "description": "A Tailwind CSS project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"tailwindcss -i ./src/css/input.css -o ./dist/css/output.css --watch\" \"cpx ./src/images/**/* ./dist/images --watch\"",
+    "build": "tailwindcss -i ./src/css/input.css -o ./dist/css/output.css --minify && cpx ./src/images/**/* ./dist/images",
+    "copy-images": "cpx ./src/images/**/* ./dist/images --watch"
+  },
+  "keywords": [
+    "tailwind",
+    "css"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cpx": "^1.5.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  }
+}
