@@ -17,12 +17,21 @@
           <div class="flex items-center space-x-6">
             <h1 class="text-2xl font-bold">Lịch sử đảng cộng sản việt nam</h1>
           </div>
-          <div class="flex items-center space-x-6">
+          <div class="flex items-center space-x-6" id="nav-right">
             <a href="#" class="text-white-100 hover:text-olive-400"
               >Tìm hiểu về lịch sử</a
             >
             <a href="#" class="text-olive-100 hover:text-olive-400">làm quiz</a>
             <a href="#" class="text-olive-100 hover:text-olive-400">About me</a>
+            <a href="#" class="text-white hover:text-orange-400" id="login-link"
+              >Đăng nhập</a
+            >
+            <a
+              href="register.html"
+              class="text-white hover:text-orange-400"
+              id="register-link"
+              >Tạo tài khoản</a
+            >
           </div>
         </div>
       </nav>
@@ -347,6 +356,35 @@
           nav.classList.add("bg-transparent");
         }
       });
+    </script>
+
+    <script>
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        document.getElementById("login-link").style.display = "none";
+        document.getElementById("register-link").style.display = "none";
+        const navRight = document.getElementById("nav-right");
+        const userDiv = document.createElement("div");
+        userDiv.className = "relative";
+        userDiv.innerHTML = `
+          <button id="user-menu-button" class="text-white hover:text-orange-400">Welcome, ${user.username} ▼</button>
+          <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
+            <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
+            <a href="#" id="logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+          </div>
+        `;
+        navRight.appendChild(userDiv);
+        document
+          .getElementById("user-menu-button")
+          .addEventListener("click", () => {
+            const menu = document.getElementById("user-menu");
+            menu.classList.toggle("hidden");
+          });
+        document.getElementById("logout").addEventListener("click", () => {
+          localStorage.removeItem("user");
+          location.reload();
+        });
+      }
     </script>
   </body>
 </html>
