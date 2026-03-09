@@ -16,14 +16,46 @@
           class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center"
         >
           <div class="flex items-center space-x-6">
-            <h1 class="text-2xl font-bold">Lịch sử đảng cộng sản việt nam</h1>
+            <a href="index.html" class="text-white no-underline"
+              ><h1 class="text-2xl font-bold">
+                Lịch sử đảng cộng sản việt nam
+              </h1></a
+            >
           </div>
-          <div class="flex items-center space-x-6" id="nav-right">
-            <a href="index.html" class="text-white-100 hover:text-olive-400"
+          <!-- Hamburger button (mobile) -->
+          <button
+            id="nav-toggle"
+            class="nav:hidden text-white focus:outline-none"
+            aria-label="Menu"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+
+          <!-- Nav links -->
+          <div class="hidden nav:flex items-center space-x-6" id="nav-right">
+            <a href="history.html" class="text-white-100 hover:text-olive-400"
               >Tìm hiểu về lịch sử</a
             >
-            <a href="#" class="text-olive-100 hover:text-olive-400">làm quiz</a>
-            <a href="#" class="text-olive-100 hover:text-olive-400">About me</a>
+            <a href="quiz.html" class="text-olive-100 hover:text-olive-400"
+              >làm quiz</a
+            >
+            <a
+              href="index.html#about-me"
+              class="text-olive-100 hover:text-olive-400"
+              >About me</a
+            >
             <div class="relative">
               <button
                 id="user-menu-button"
@@ -49,6 +81,39 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Mobile nav menu -->
+        <div
+          id="mobile-menu"
+          class="nav:hidden hidden bg-black/90 backdrop-blur-sm px-4 pb-4 pt-2 space-y-3"
+        >
+          <a
+            href="history.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >Tìm hiểu về lịch sử</a
+          >
+          <a
+            href="quiz.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >Làm quiz</a
+          >
+          <a
+            href="index.html#about-me"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >About me</a
+          >
+          <a
+            href="profile.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >Xem thông tin</a
+          >
+          <a
+            href="#"
+            id="mobile-logout-btn"
+            class="block text-white/90 hover:text-yellow-400 py-2"
+            >Đăng xuất</a
+          >
         </div>
       </nav>
 

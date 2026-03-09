@@ -26,3 +26,26 @@ window.addEventListener("scroll", function () {
     nav.classList.add("bg-transparent");
   }
 });
+
+// Mobile nav toggle
+(function initMobileNav() {
+  var toggle = document.getElementById("nav-toggle");
+  var menu = document.getElementById("mobile-menu");
+  if (!toggle || !menu) return;
+  toggle.addEventListener("click", function () {
+    menu.classList.toggle("hidden");
+  });
+  menu.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      menu.classList.add("hidden");
+    });
+  });
+  var logoutBtn = document.getElementById("mobile-logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("user");
+      window.location.href = "index.html";
+    });
+  }
+})();

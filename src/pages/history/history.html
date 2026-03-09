@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch Sử Đảng Cộng Sản Việt Nam</title>
+    <link rel="stylesheet" href="../../dist/css/output.css" />
+    <link rel="stylesheet" href="./history.css" />
+  </head>
+  <body>
+    <div class="min-h-screen bg-gray-900">
+      <!-- Nav -->
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm shadow-lg text-white transition-all duration-300"
+      >
+        <div
+          class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center"
+        >
+          <div class="flex items-center space-x-6">
+            <a href="index.html" class="text-white no-underline"
+              ><h1 class="text-2xl font-bold">
+                Lịch sử đảng cộng sản việt nam
+              </h1></a
+            >
+          </div>
+          <!-- Hamburger button (mobile) -->
+          <button
+            id="nav-toggle"
+            class="nav:hidden text-white focus:outline-none"
+            aria-label="Menu"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+
+          <!-- Nav links -->
+          <div class="hidden nav:flex items-center space-x-6" id="nav-right">
+            <a
+              href="history.html"
+              class="text-yellow-400 hover:text-yellow-300 font-semibold"
+              >Tìm hiểu về lịch sử</a
+            >
+            <a href="quiz.html" class="text-olive-100 hover:text-olive-400"
+              >làm quiz</a
+            >
+            <a
+              href="index.html#about-me"
+              class="text-olive-100 hover:text-olive-400"
+              >About me</a
+            >
+            <a
+              href="login.html"
+              class="text-white hover:text-orange-400"
+              id="login-link"
+              >Đăng nhập</a
+            >
+            <a
+              href="register.html"
+              class="text-white hover:text-orange-400"
+              id="register-link"
+              >Tạo tài khoản</a
+            >
+          </div>
+        </div>
+
+        <!-- Mobile nav menu -->
+        <div
+          id="mobile-menu"
+          class="nav:hidden hidden bg-black/90 backdrop-blur-sm px-4 pb-4 pt-2 space-y-3"
+        >
+          <a
+            href="history.html"
+            class="block text-yellow-400 hover:text-yellow-300 py-2 border-b border-white/10 font-semibold"
+            >Tìm hiểu về lịch sử</a
+          >
+          <a
+            href="quiz.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >Làm quiz</a
+          >
+          <a
+            href="index.html#about-me"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >About me</a
+          >
+          <a
+            href="login.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            id="mobile-login-link"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="block text-white/90 hover:text-yellow-400 py-2"
+            id="mobile-register-link"
+            >Tạo tài khoản</a
+          >
+        </div>
+      </nav>
+
+      <!-- Hero Banner -->
+      <section class="pt-20 pb-12 bg-gradient-to-b from-red-900 to-gray-900">
+        <div class="max-w-6xl mx-auto px-4 py-12 text-center">
+          <h1 class="text-5xl font-bold text-white mb-4">
+            Lịch Sử Đảng Cộng Sản Việt Nam
+          </h1>
+          <p class="text-xl text-white/70 max-w-3xl mx-auto">
+            Hành trình lãnh đạo cách mạng, xây dựng và bảo vệ Tổ quốc qua các
+            giai đoạn lịch sử trọng đại
+          </p>
+          <div class="mt-6 w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+        </div>
+      </section>
+
+      <!-- Main Content: Sidebar + Content -->
+      <div class="max-w-7xl mx-auto px-4 py-8 flex gap-0 lg:gap-8">
+        <!-- LEFT: Timeline Sidebar -->
+        <aside id="timeline-sidebar" class="hidden lg:block w-80 flex-shrink-0">
+          <div class="sticky top-24">
+            <h3
+              class="text-lg font-bold text-yellow-400 mb-4 uppercase tracking-wider"
+            >
+              Mốc Lịch Sử
+            </h3>
+            <nav class="timeline-nav space-y-1">
+              <!-- Part I -->
+              <div class="timeline-group">
+                <a
+                  href="#part-1"
+                  class="timeline-link timeline-link-main active"
+                  data-target="part-1"
+                >
+                  <span class="timeline-dot"></span>
+                  <span class="timeline-year">1945–1954</span>
+                  <span class="timeline-label">Kháng chiến chống Pháp</span>
+                </a>
+                <div class="timeline-sub pl-6 space-y-1">
+                  <a href="#s-4-1" class="timeline-link" data-target="s-4-1">
+                    <span class="timeline-dot-sm"></span>
+                    <span>Ý nghĩa lịch sử</span>
+                  </a>
+                  <a
+                    href="#s-4-1-vn"
+                    class="timeline-link"
+                    data-target="s-4-1-vn"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Đối với Việt Nam</span>
+                  </a>
+                  <a
+                    href="#s-4-1-qt"
+                    class="timeline-link"
+                    data-target="s-4-1-qt"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Đối với quốc tế</span>
+                  </a>
+                  <a href="#s-4-2" class="timeline-link" data-target="s-4-2">
+                    <span class="timeline-dot-sm"></span>
+                    <span>Kinh nghiệm lãnh đạo</span>
+                  </a>
+                  <a
+                    href="#s-4-2-1"
+                    class="timeline-link"
+                    data-target="s-4-2-1"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Đường lối đúng đắn</span>
+                  </a>
+                  <a
+                    href="#s-4-2-2"
+                    class="timeline-link"
+                    data-target="s-4-2-2"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Kháng chiến & kiến quốc</span>
+                  </a>
+                  <a
+                    href="#s-4-2-3"
+                    class="timeline-link"
+                    data-target="s-4-2-3"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Phương thức lãnh đạo</span>
+                  </a>
+                  <a
+                    href="#s-4-2-4"
+                    class="timeline-link"
+                    data-target="s-4-2-4"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Lực lượng ba thứ quân</span>
+                  </a>
+                  <a
+                    href="#s-4-2-5"
+                    class="timeline-link"
+                    data-target="s-4-2-5"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Xây dựng, chỉnh đốn Đảng</span>
+                  </a>
+                  <a
+                    href="#s-ketluan1"
+                    class="timeline-link"
+                    data-target="s-ketluan1"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Kết luận</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Part II -->
+              <div class="timeline-group mt-4">
+                <a
+                  href="#part-2"
+                  class="timeline-link timeline-link-main"
+                  data-target="part-2"
+                >
+                  <span class="timeline-dot"></span>
+                  <span class="timeline-year">1954–1975</span>
+                  <span class="timeline-label">Kháng chiến chống Mỹ</span>
+                </a>
+                <div class="timeline-sub pl-6 space-y-1">
+                  <a
+                    href="#s-boicanh"
+                    class="timeline-link"
+                    data-target="s-boicanh"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Bối cảnh sau Genève</span>
+                  </a>
+                  <a
+                    href="#s-khoiphuc"
+                    class="timeline-link"
+                    data-target="s-khoiphuc"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Khôi phục kinh tế (1954–1957)</span>
+                  </a>
+                  <a
+                    href="#s-caitao"
+                    class="timeline-link"
+                    data-target="s-caitao"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Cải tạo XHCN (1958–1960)</span>
+                  </a>
+                  <a
+                    href="#s-miennam"
+                    class="timeline-link"
+                    data-target="s-miennam"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Cách mạng miền Nam</span>
+                  </a>
+                  <a
+                    href="#s-dongkhoi"
+                    class="timeline-link"
+                    data-target="s-dongkhoi"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Phong trào Đồng Khởi</span>
+                  </a>
+                  <a
+                    href="#s-mattran"
+                    class="timeline-link"
+                    data-target="s-mattran"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Mặt trận DTGP miền Nam</span>
+                  </a>
+                  <a
+                    href="#s-ynghia1"
+                    class="timeline-link"
+                    data-target="s-ynghia1"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Ý nghĩa 1954–1960</span>
+                  </a>
+                  <a
+                    href="#s-daihoi3"
+                    class="timeline-link"
+                    data-target="s-daihoi3"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Đại hội III (9/1960)</span>
+                  </a>
+                  <a
+                    href="#s-xdcnxh"
+                    class="timeline-link"
+                    data-target="s-xdcnxh"
+                  >
+                    <span class="timeline-dot-sm"></span>
+                    <span>Xây dựng CNXH miền Bắc</span>
+                  </a>
+                  <a href="#s-ctdb" class="timeline-link" data-target="s-ctdb">
+                    <span class="timeline-dot-sm"></span>
+                    <span>Đánh bại Chiến tranh đặc biệt</span>
+                  </a>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- RIGHT: Content -->
+        <main class="flex-1 min-w-0">
+          <!-- ==================== PART I ==================== -->
+          <article id="part-1" class="content-section mb-16">
+            <div
+              class="section-header bg-gradient-to-r from-red-800 to-red-600 rounded-xl p-8 mb-8"
+            >
+              <div class="flex items-center gap-4 mb-3">
+                <span
+                  class="inline-block bg-yellow-400 text-red-900 text-sm font-bold px-3 py-1 rounded-full"
+                  >PHẦN I</span
+                >
+                <span class="text-yellow-300 font-semibold">1945 – 1954</span>
+              </div>
+              <h2 class="text-3xl font-bold text-white leading-tight">
+                Đảng lãnh đạo xây dựng, bảo vệ chính quyền cách mạng và kháng
+                chiến chống thực dân Pháp xâm lược
+              </h2>
+              <p class="text-white/70 mt-3 text-lg">
+                4. Ý nghĩa lịch sử và kinh nghiệm của Đảng trong lãnh đạo kháng
+                chiến chống thực dân Pháp và can thiệp Mỹ
+              </p>
+            </div>
+
+            <div
+              class="content-body bg-gray-800 rounded-xl p-8 text-gray-200 leading-relaxed space-y-8"
+            >
+              <p class="text-lg">
+                Cuộc kháng chiến chống thực dân Pháp xâm lược (1945–1954) là một
+                trong những giai đoạn quan trọng của lịch sử cách mạng Việt Nam.
+                Dưới sự lãnh đạo của Đảng Cộng sản Việt Nam, nhân dân ta đã tiến
+                hành cuộc kháng chiến lâu dài, gian khổ nhưng đầy thắng lợi.
+                Thắng lợi đó không chỉ có ý nghĩa to lớn đối với dân tộc Việt
+                Nam mà còn để lại nhiều bài học kinh nghiệm quý báu trong công
+                tác lãnh đạo cách mạng của Đảng.
+              </p>
+
+              <!-- 4.1 -->
+              <div id="s-4-1" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-3"
+                >
+                  <span
+                    class="w-8 h-8 bg-yellow-400 text-gray-900 rounded-full flex items-center justify-center text-sm font-bold"
+                    >4.1</span
+                  >
+                  Ý nghĩa lịch sử của thắng lợi kháng chiến
+                </h3>
+
+                <!-- Đối với Việt Nam -->
+                <div
+                  id="s-4-1-vn"
+                  class="scroll-target bg-gray-700/50 rounded-lg p-6 mb-4 border-l-4 border-red-500"
+                >
+                  <h4 class="text-xl font-semibold text-red-400 mb-3">
+                    🇻🇳 Đối với Việt Nam
+                  </h4>
+                  <p class="mb-3">
+                    Trong cuộc kháng chiến trường kỳ, dưới sự lãnh đạo của Đảng,
+                    toàn dân và toàn quân ta đã bảo vệ và phát triển những thành
+                    quả quan trọng của Cách mạng Tháng Tám năm 1945. Đồng thời,
+                    chế độ dân chủ nhân dân được củng cố và phát triển trên
+                    nhiều lĩnh vực như chính trị, kinh tế, văn hóa và xã hội.
+                  </p>
+                  <p class="mb-3">
+                    Thắng lợi của cuộc kháng chiến đã dẫn đến việc giải phóng
+                    hoàn toàn miền Bắc, tạo ra tiền đề chính trị – xã hội quan
+                    trọng để Đảng quyết định đưa miền Bắc tiến lên xây dựng chủ
+                    nghĩa xã hội. Miền Bắc từ đó trở thành hậu phương lớn, đóng
+                    vai trò quan trọng trong việc chi viện sức người, sức của
+                    cho cuộc đấu tranh giải phóng miền Nam sau này.
+                  </p>
+                  <p>
+                    Bên cạnh đó, thắng lợi của cuộc kháng chiến còn mang ý nghĩa
+                    lịch sử to lớn đối với sự nghiệp đấu tranh giành độc lập,
+                    thống nhất và bảo vệ toàn vẹn lãnh thổ của dân tộc Việt Nam.
+                  </p>
+                </div>
+
+                <!-- Đối với quốc tế -->
+                <div
+                  id="s-4-1-qt"
+                  class="scroll-target bg-gray-700/50 rounded-lg p-6 border-l-4 border-blue-500"
+                >
+                  <h4 class="text-xl font-semibold text-blue-400 mb-3">
+                    🌍 Đối với quốc tế
+                  </h4>
+                  <p class="mb-3">
+                    Chiến thắng của nhân dân Việt Nam đã đánh bại cuộc chiến
+                    tranh xâm lược quy mô lớn của thực dân Pháp với sự can thiệp
+                    và hỗ trợ từ Mỹ. Đây là cuộc chiến tranh mà đối phương có
+                    tiềm lực quân sự và kinh tế mạnh, được trang bị vũ khí hiện
+                    đại và do những nhà chính trị, tướng lĩnh có kinh nghiệm chỉ
+                    huy.
+                  </p>
+                  <p class="mb-3">
+                    Tuy nhiên, lần đầu tiên trong lịch sử phong trào giải phóng
+                    dân tộc, một nước thuộc địa nhỏ bé đã đánh bại một cường
+                    quốc thực dân. Thắng lợi này đã cổ vũ mạnh mẽ phong trào đấu
+                    tranh giành độc lập, tự do của các dân tộc bị áp bức trên
+                    thế giới, đặc biệt tại các khu vực châu Á, châu Phi và Mỹ
+                    Latinh.
+                  </p>
+                  <p>
+                    Đồng thời, chiến thắng của Việt Nam cũng góp phần thúc đẩy
+                    các phong trào đấu tranh vì hòa bình, dân chủ và tiến bộ xã
+                    hội trên toàn thế giới.
+                  </p>
+                </div>
+              </div>
+
+              <!-- 4.2 -->
+              <div id="s-4-2" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-3"
+                >
+                  <span
+                    class="w-8 h-8 bg-yellow-400 text-gray-900 rounded-full flex items-center justify-center text-sm font-bold"
+                    >4.2</span
+                  >
+                  Kinh nghiệm của Đảng trong lãnh đạo kháng chiến
+                </h3>
+                <p class="mb-6 text-gray-300">
+                  Thắng lợi của cuộc kháng chiến chống thực dân Pháp đã để lại
+                  nhiều bài học kinh nghiệm quý báu cho Đảng trong công tác lãnh
+                  đạo cách mạng.
+                </p>
+
+                <!-- KN 1 -->
+                <div id="s-4-2-1" class="scroll-target experience-card mb-6">
+                  <div class="flex gap-4">
+                    <div
+                      class="flex-shrink-0 w-12 h-12 bg-yellow-400/20 text-yellow-400 rounded-xl flex items-center justify-center text-xl font-bold"
+                    >
+                      1
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-yellow-300 mb-2">
+                        Đề ra đường lối kháng chiến đúng đắn, sáng tạo
+                      </h4>
+                      <p class="mb-3">
+                        Ngay từ những ngày đầu của cuộc kháng chiến, Đảng đã đề
+                        ra đường lối đúng đắn và sáng tạo phù hợp với thực tiễn
+                        lịch sử. Đường lối cơ bản được xác định là "kháng chiến
+                        và kiến quốc", trong đó nhấn mạnh kháng chiến toàn dân,
+                        toàn diện, lâu dài và dựa vào sức mình là chính.
+                      </p>
+                      <p>
+                        Đường lối này đã khơi dậy tinh thần đoàn kết dân tộc,
+                        huy động tối đa sức mạnh của toàn dân vào cuộc kháng
+                        chiến chống ngoại xâm. Đồng thời, Đảng cũng chú trọng
+                        kết hợp sức mạnh nội lực của dân tộc với sự ủng hộ và
+                        giúp đỡ của các lực lượng tiến bộ trên thế giới.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- KN 2 -->
+                <div id="s-4-2-2" class="scroll-target experience-card mb-6">
+                  <div class="flex gap-4">
+                    <div
+                      class="flex-shrink-0 w-12 h-12 bg-yellow-400/20 text-yellow-400 rounded-xl flex items-center justify-center text-xl font-bold"
+                    >
+                      2
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-yellow-300 mb-2">
+                        Kết hợp chặt chẽ kháng chiến và kiến quốc
+                      </h4>
+                      <p class="mb-3">
+                        Trong quá trình lãnh đạo kháng chiến, Đảng đã giải quyết
+                        đúng đắn mối quan hệ giữa hai nhiệm vụ cơ bản: vừa kháng
+                        chiến vừa kiến quốc.
+                      </p>
+                      <p>
+                        Kháng chiến không chỉ diễn ra trên mặt trận quân sự mà
+                        còn trên nhiều lĩnh vực khác như kinh tế, văn hóa và xã
+                        hội. Bên cạnh việc tập trung đánh bại kẻ thù xâm lược,
+                        Đảng cũng chú trọng cải thiện đời sống nhân dân, xây
+                        dựng hậu phương vững mạnh và củng cố hệ thống chính trị
+                        – xã hội.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- KN 3 -->
+                <div id="s-4-2-3" class="scroll-target experience-card mb-6">
+                  <div class="flex gap-4">
+                    <div
+                      class="flex-shrink-0 w-12 h-12 bg-yellow-400/20 text-yellow-400 rounded-xl flex items-center justify-center text-xl font-bold"
+                    >
+                      3
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-yellow-300 mb-2">
+                        Hoàn thiện phương thức lãnh đạo phù hợp từng giai đoạn
+                      </h4>
+                      <p class="mb-3">
+                        Đảng đã từng bước hoàn thiện phương thức lãnh đạo và tổ
+                        chức điều hành cuộc kháng chiến phù hợp với từng giai
+                        đoạn phát triển của chiến tranh.
+                      </p>
+                      <p class="mb-3">
+                        Chiến tranh nhân dân được phát triển với sự tham gia của
+                        toàn dân, trên tất cả các mặt trận. Đảng đã kết hợp linh
+                        hoạt giữa chiến tranh chính quy và chiến tranh du kích,
+                        giữa các hoạt động quân sự ở mặt trận chính diện với các
+                        hoạt động ở vùng sau lưng địch và vùng tạm chiếm.
+                      </p>
+                      <p>
+                        Cùng với đó, nghệ thuật quân sự được vận dụng sáng tạo,
+                        linh hoạt, với phương châm
+                        <strong class="text-yellow-300"
+                          >"đánh chắc, tiến chắc"</strong
+                        >, từng bước giành thắng lợi và tiến tới thắng lợi quyết
+                        định.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- KN 4 -->
+                <div id="s-4-2-4" class="scroll-target experience-card mb-6">
+                  <div class="flex gap-4">
+                    <div
+                      class="flex-shrink-0 w-12 h-12 bg-yellow-400/20 text-yellow-400 rounded-xl flex items-center justify-center text-xl font-bold"
+                    >
+                      4
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-yellow-300 mb-2">
+                        Xây dựng lực lượng vũ trang ba thứ quân
+                      </h4>
+                      <p class="mb-3">
+                        Một trong những kinh nghiệm quan trọng là xây dựng và
+                        phát triển lực lượng vũ trang nhân dân theo mô hình ba
+                        thứ quân:
+                        <strong class="text-yellow-300"
+                          >bộ đội chủ lực, bộ đội địa phương và dân quân du
+                          kích</strong
+                        >.
+                      </p>
+                      <p class="mb-3">
+                        Lực lượng vũ trang được xây dựng vững mạnh cả về chính
+                        trị, tư tưởng và tổ chức, trở thành lực lượng nòng cốt
+                        trong cuộc kháng chiến. Hình ảnh
+                        <strong class="text-red-400">"Bộ đội Cụ Hồ"</strong>
+                        đã trở thành biểu tượng cao đẹp của quân đội cách mạng
+                        Việt Nam.
+                      </p>
+                      <p>
+                        Lực lượng Công an nhân dân cũng được xây dựng và phát
+                        triển, gắn bó mật thiết với nhân dân, thực hiện nhiệm vụ
+                        bảo vệ an ninh và trật tự xã hội.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- KN 5 -->
+                <div id="s-4-2-5" class="scroll-target experience-card mb-6">
+                  <div class="flex gap-4">
+                    <div
+                      class="flex-shrink-0 w-12 h-12 bg-yellow-400/20 text-yellow-400 rounded-xl flex items-center justify-center text-xl font-bold"
+                    >
+                      5
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-yellow-300 mb-2">
+                        Coi trọng xây dựng, chỉnh đốn Đảng
+                      </h4>
+                      <p class="mb-3">
+                        Trong suốt quá trình kháng chiến, Đảng luôn coi trọng
+                        công tác xây dựng và chỉnh đốn Đảng nhằm nâng cao năng
+                        lực lãnh đạo và sức chiến đấu của tổ chức Đảng.
+                      </p>
+                      <p class="mb-3">
+                        Uy tín của Đảng và Chính phủ được xây dựng thông qua vai
+                        trò tiên phong, gương mẫu của các tổ chức Đảng và đội
+                        ngũ cán bộ, đảng viên. Công tác tuyên truyền, giáo dục
+                        và vận động quần chúng được đặc biệt chú trọng.
+                      </p>
+                      <p>
+                        Đảng cũng nhấn mạnh việc khắc phục tư tưởng chủ quan,
+                        giáo điều và vận dụng sáng tạo kinh nghiệm quốc tế phù
+                        hợp với điều kiện thực tiễn Việt Nam.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kết luận phần I -->
+              <div
+                id="s-ketluan1"
+                class="scroll-target bg-gradient-to-r from-red-900/50 to-yellow-900/30 rounded-xl p-6 border border-yellow-500/30"
+              >
+                <h4 class="text-xl font-bold text-yellow-400 mb-3">
+                  📌 Kết luận
+                </h4>
+                <p class="mb-3">
+                  Thắng lợi của cuộc kháng chiến chống thực dân Pháp (1945–1954)
+                  là một sự kiện lịch sử có ý nghĩa to lớn đối với cách mạng
+                  Việt Nam và phong trào giải phóng dân tộc trên thế giới. Thắng
+                  lợi này khẳng định vai trò lãnh đạo đúng đắn của Đảng Cộng sản
+                  Việt Nam.
+                </p>
+                <p>
+                  Những kinh nghiệm đó đã trở thành nền tảng quan trọng để Đảng
+                  tiếp tục lãnh đạo nhân dân Việt Nam giành thắng lợi trong các
+                  giai đoạn cách mạng tiếp theo.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- ==================== PART II ==================== -->
+          <article id="part-2" class="content-section mb-16">
+            <div
+              class="section-header bg-gradient-to-r from-blue-800 to-blue-600 rounded-xl p-8 mb-8"
+            >
+              <div class="flex items-center gap-4 mb-3">
+                <span
+                  class="inline-block bg-yellow-400 text-blue-900 text-sm font-bold px-3 py-1 rounded-full"
+                  >PHẦN II</span
+                >
+                <span class="text-yellow-300 font-semibold">1954 – 1975</span>
+              </div>
+              <h2 class="text-3xl font-bold text-white leading-tight">
+                Lãnh đạo xây dựng CNXH ở miền Bắc và kháng chiến chống đế quốc
+                Mỹ xâm lược, giải phóng miền Nam, thống nhất đất nước
+              </h2>
+              <p class="text-white/70 mt-3 text-lg">
+                1. Sự lãnh đạo của Đảng đối với cách mạng hai miền Nam - Bắc
+                (1954 - 1965)
+              </p>
+            </div>
+
+            <div
+              class="content-body bg-gray-800 rounded-xl p-8 text-gray-200 leading-relaxed space-y-8"
+            >
+              <!-- Bối cảnh -->
+              <div id="s-boicanh" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-blue-400 rounded-full"></span>
+                  Bối cảnh lịch sử sau Hiệp định Genève 1954
+                </h3>
+                <p class="mb-4">
+                  Sau Hiệp định Genève, Việt Nam tạm thời bị chia cắt tại vĩ
+                  tuyến 17:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                  <div
+                    class="bg-red-900/30 border border-red-500/30 rounded-lg p-4"
+                  >
+                    <h5 class="font-bold text-red-400 mb-2">🔴 Miền Bắc</h5>
+                    <p class="text-sm">
+                      Hoàn toàn giải phóng, bắt đầu xây dựng xã hội mới. Tiến
+                      hành cách mạng XHCN, xây dựng hậu phương vững mạnh cho cả
+                      nước.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4"
+                  >
+                    <h5 class="font-bold text-blue-400 mb-2">🔵 Miền Nam</h5>
+                    <p class="text-sm">
+                      Dưới sự kiểm soát của chính quyền do Mỹ hậu thuẫn. Tiếp
+                      tục cách mạng dân tộc dân chủ nhân dân, tiến tới giải
+                      phóng và thống nhất.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="bg-gray-700/50 rounded-lg p-4 border-l-4 border-yellow-500"
+                >
+                  <p class="text-sm text-gray-300">
+                    <strong class="text-yellow-400">Mối quan hệ:</strong> Miền
+                    Bắc giữ vai trò <em>quyết định nhất</em> đối với sự phát
+                    triển cách mạng cả nước; cách mạng miền Nam giữ vai trò
+                    <em>quyết định trực tiếp</em> đối với giải phóng miền Nam và
+                    thống nhất đất nước.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Khôi phục kinh tế -->
+              <div id="s-khoiphuc" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-blue-400 rounded-full"></span>
+                  Khôi phục kinh tế ở miền Bắc (1954 – 1957)
+                </h3>
+                <p class="mb-4">
+                  Sau nhiều năm chiến tranh, nền kinh tế miền Bắc bị tàn phá
+                  nặng nề. Nhiệm vụ trước mắt là khôi phục kinh tế và ổn định
+                  đời sống.
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-2xl mb-1">🌾</div>
+                    <p class="text-xs text-gray-400">Nông nghiệp</p>
+                  </div>
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-2xl mb-1">🏭</div>
+                    <p class="text-xs text-gray-400">Công nghiệp</p>
+                  </div>
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-2xl mb-1">🚂</div>
+                    <p class="text-xs text-gray-400">Giao thông</p>
+                  </div>
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-2xl mb-1">💰</div>
+                    <p class="text-xs text-gray-400">Tài chính</p>
+                  </div>
+                </div>
+                <p class="text-gray-300">
+                  Nhờ sự lãnh đạo của Đảng và nỗ lực của toàn dân, đến năm 1957
+                  nền kinh tế miền Bắc cơ bản được khôi phục, đời sống nhân dân
+                  từng bước cải thiện.
+                </p>
+              </div>
+
+              <!-- Cải tạo XHCN -->
+              <div id="s-caitao" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-blue-400 rounded-full"></span>
+                  Cải tạo xã hội chủ nghĩa ở miền Bắc (1958 – 1960)
+                </h3>
+                <p class="mb-4">
+                  Sau khi hoàn thành khôi phục kinh tế, Đảng tiếp tục lãnh đạo
+                  cải tạo XHCN đối với các thành phần kinh tế:
+                </p>
+                <div class="space-y-3">
+                  <div
+                    class="bg-gray-700/50 rounded-lg p-4 flex gap-3 items-start"
+                  >
+                    <span class="text-green-400 text-xl">🌾</span>
+                    <div>
+                      <h5 class="font-semibold text-green-400">
+                        Cải tạo nông nghiệp
+                      </h5>
+                      <p class="text-sm text-gray-300">
+                        Phong trào hợp tác hóa, chuyển từ sản xuất nhỏ lẻ sang
+                        sản xuất tập thể.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-700/50 rounded-lg p-4 flex gap-3 items-start"
+                  >
+                    <span class="text-orange-400 text-xl">🔨</span>
+                    <div>
+                      <h5 class="font-semibold text-orange-400">
+                        Cải tạo thủ công nghiệp
+                      </h5>
+                      <p class="text-sm text-gray-300">
+                        Tổ chức vào tổ hợp tác và hợp tác xã thủ công nghiệp.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-700/50 rounded-lg p-4 flex gap-3 items-start"
+                  >
+                    <span class="text-purple-400 text-xl">🏪</span>
+                    <div>
+                      <h5 class="font-semibold text-purple-400">
+                        Cải tạo công thương nghiệp tư bản tư doanh
+                      </h5>
+                      <p class="text-sm text-gray-300">
+                        Cải tạo hòa bình, đưa vào hình thức công tư hợp doanh.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-4 text-gray-300">
+                  Đến năm 1960, miền Bắc cơ bản hoàn thành công cuộc cải tạo
+                  XHCN, tạo nền tảng quan trọng để bước vào thời kỳ xây dựng
+                  CNXH.
+                </p>
+              </div>
+
+              <!-- Cách mạng miền Nam -->
+              <div id="s-miennam" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-blue-400 rounded-full"></span>
+                  Tình hình cách mạng miền Nam sau năm 1954
+                </h3>
+                <p class="mb-4">
+                  Đế quốc Mỹ từng bước thay thế Pháp, dựng lên chính quyền Ngô
+                  Đình Diệm. Chính quyền này thực hiện nhiều chính sách đàn áp:
+                </p>
+                <ul class="space-y-2 mb-4">
+                  <li class="flex items-start gap-2">
+                    <span class="text-red-400 mt-1">✗</span>
+                    <span
+                      >Phá hoại Hiệp định Genève, từ chối tổng tuyển cử thống
+                      nhất đất nước</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-red-400 mt-1">✗</span>
+                    <span>Thực hiện các chiến dịch "tố cộng", "diệt cộng"</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-red-400 mt-1">✗</span>
+                    <span>Bắt bớ, giam cầm và đàn áp những người yêu nước</span>
+                  </li>
+                </ul>
+                <div
+                  class="bg-yellow-900/30 border border-yellow-500/30 rounded-lg p-4"
+                >
+                  <p class="text-sm">
+                    <strong class="text-yellow-400"
+                      >Nghị quyết 15 (1959):</strong
+                    >
+                    Bước ngoặt quan trọng — xác định con đường phát triển cách
+                    mạng miền Nam là kết hợp đấu tranh chính trị với đấu tranh
+                    vũ trang, từ thế phòng thủ chuyển sang thế tiến công.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Phong trào Đồng Khởi -->
+              <div id="s-dongkhoi" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-blue-400 rounded-full"></span>
+                  Phong trào Đồng Khởi (1959 – 1960)
+                </h3>
+                <p class="mb-4">
+                  Bùng nổ đầu tiên tại
+                  <strong class="text-yellow-300">tỉnh Bến Tre</strong>
+                  vào tháng 1/1960, sau đó lan rộng ra Nam Bộ, Tây Nguyên và
+                  Trung Trung Bộ.
+                </p>
+                <div class="grid md:grid-cols-3 gap-3">
+                  <div
+                    class="bg-green-900/30 border border-green-500/30 rounded-lg p-4 text-center"
+                  >
+                    <div class="text-3xl mb-2">💥</div>
+                    <p class="text-sm text-green-300 font-semibold">
+                      Phá vỡ chính quyền địch ở nông thôn
+                    </p>
+                  </div>
+                  <div
+                    class="bg-green-900/30 border border-green-500/30 rounded-lg p-4 text-center"
+                  >
+                    <div class="text-3xl mb-2">🏛️</div>
+                    <p class="text-sm text-green-300 font-semibold">
+                      Thành lập chính quyền cách mạng
+                    </p>
+                  </div>
+                  <div
+                    class="bg-green-900/30 border border-green-500/30 rounded-lg p-4 text-center"
+                  >
+                    <div class="text-3xl mb-2">🗺️</div>
+                    <p class="text-sm text-green-300 font-semibold">
+                      Mở rộng vùng giải phóng
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mặt trận -->
+              <div id="s-mattran" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-blue-400 rounded-full"></span>
+                  Mặt trận Dân tộc Giải phóng miền Nam Việt Nam
+                </h3>
+                <div
+                  class="bg-gray-700/50 rounded-lg p-6 border-l-4 border-yellow-500"
+                >
+                  <p class="text-yellow-400 font-semibold mb-2">
+                    📅 Ngày 20 tháng 12 năm 1960
+                  </p>
+                  <p class="mb-3">Mặt trận có nhiệm vụ:</p>
+                  <ul class="space-y-1 text-gray-300 text-sm">
+                    <li class="flex items-center gap-2">
+                      <span class="text-yellow-400">★</span> Tập hợp và đoàn kết
+                      các tầng lớp nhân dân miền Nam
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="text-yellow-400">★</span> Đấu tranh chống đế
+                      quốc Mỹ và chính quyền tay sai
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="text-yellow-400">★</span> Thực hiện mục tiêu
+                      độc lập, dân chủ, cải thiện đời sống
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Ý nghĩa -->
+              <div
+                id="s-ynghia1"
+                class="scroll-target bg-gradient-to-r from-blue-900/50 to-yellow-900/30 rounded-xl p-6 border border-blue-500/30"
+              >
+                <h4 class="text-xl font-bold text-yellow-400 mb-3">
+                  📌 Ý nghĩa giai đoạn 1954 – 1960
+                </h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h5 class="font-semibold text-red-400 mb-1">Miền Bắc</h5>
+                    <p class="text-sm text-gray-300">
+                      Khôi phục kinh tế và cải tạo XHCN tạo nền tảng xây dựng
+                      CNXH, trở thành hậu phương vững mạnh.
+                    </p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-blue-400 mb-1">Miền Nam</h5>
+                    <p class="text-sm text-gray-300">
+                      Phong trào Đồng khởi đưa cách mạng từ thế giữ gìn lực
+                      lượng sang thế tiến công.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phần 2: Đại hội III & sau đó -->
+              <div class="border-t border-gray-600 pt-8 mt-8">
+                <h3
+                  class="text-xl font-bold text-white/50 uppercase tracking-wider mb-6"
+                >
+                  Phần 2: Giai đoạn 1960 – 1965
+                </h3>
+              </div>
+
+              <!-- Đại hội III -->
+              <div id="s-daihoi3" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-yellow-400 rounded-full"></span>
+                  Đại hội đại biểu toàn quốc lần thứ III (9/1960)
+                </h3>
+                <p class="mb-4">
+                  Hoàn thiện đường lối chiến lược — thực hiện đồng thời hai
+                  chiến lược cách mạng:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                  <div
+                    class="bg-red-900/30 border border-red-500/30 rounded-lg p-4"
+                  >
+                    <h5 class="font-bold text-red-400 mb-1">Miền Bắc</h5>
+                    <p class="text-sm text-gray-300">
+                      Vai trò <strong>quyết định nhất</strong> đối với sự phát
+                      triển của toàn bộ cách mạng và sự nghiệp thống nhất nước
+                      nhà.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4"
+                  >
+                    <h5 class="font-bold text-blue-400 mb-1">Miền Nam</h5>
+                    <p class="text-sm text-gray-300">
+                      Vai trò <strong>quyết định trực tiếp</strong> đối với sự
+                      nghiệp giải phóng miền Nam khỏi ách thống trị của đế quốc
+                      Mỹ.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-3 text-center"
+                >
+                  <p class="text-yellow-400 font-semibold">
+                    🎯 Mục tiêu chung: Giải phóng miền Nam, hòa bình thống nhất
+                    đất nước
+                  </p>
+                </div>
+              </div>
+
+              <!-- Xây dựng CNXH -->
+              <div id="s-xdcnxh" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-yellow-400 rounded-full"></span>
+                  Xây dựng chủ nghĩa xã hội ở miền Bắc (1961–1965)
+                </h3>
+                <p class="mb-4">
+                  <strong class="text-yellow-300"
+                    >Kế hoạch 5 năm lần thứ nhất:</strong
+                  >
+                  Xây dựng bước đầu cơ sở vật chất - kỹ thuật của CNXH và thực
+                  hiện một bước công nghiệp hóa XHCN.
+                </p>
+                <h4 class="font-semibold text-gray-300 mb-3">
+                  Các phong trào thi đua tiêu biểu:
+                </h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold text-green-400">
+                      Đại Phong
+                    </div>
+                    <p class="text-xs text-gray-400">Nông nghiệp</p>
+                  </div>
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold text-blue-400">Duyên Hải</div>
+                    <p class="text-xs text-gray-400">Công nghiệp</p>
+                  </div>
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold text-purple-400">Bắc Lý</div>
+                    <p class="text-xs text-gray-400">Giáo dục</p>
+                  </div>
+                  <div class="bg-gray-700 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold text-red-400">Ba Nhất</div>
+                    <p class="text-xs text-gray-400">Quân đội</p>
+                  </div>
+                </div>
+                <div
+                  class="bg-gray-700/50 rounded-lg p-4 border-l-4 border-red-500"
+                >
+                  <p class="text-sm">
+                    <strong class="text-red-400">Vai trò hậu phương:</strong>
+                    Miền Bắc trở thành căn cứ địa vững chắc, tăng cường chi viện
+                    cho miền Nam qua đường
+                    <strong class="text-yellow-300">Trường Sơn (559)</strong> và
+                    <strong class="text-yellow-300"
+                      >đường Hồ Chí Minh trên biển (759)</strong
+                    >.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Chiến tranh đặc biệt -->
+              <div id="s-ctdb" class="scroll-target">
+                <h3
+                  class="text-2xl font-bold text-blue-400 mb-4 flex items-center gap-3"
+                >
+                  <span class="w-2 h-8 bg-yellow-400 rounded-full"></span>
+                  Đánh bại chiến lược "Chiến tranh đặc biệt" (1961–1965)
+                </h3>
+                <p class="mb-4">
+                  Mỹ sử dụng quân đội Sài Gòn có cố vấn Mỹ hỗ trợ, lấy
+                  <strong class="text-red-400">"ấp chiến lược"</strong> làm quốc
+                  sách bình định miền Nam.
+                </p>
+                <h4 class="font-semibold text-yellow-300 mb-3">
+                  Sự lãnh đạo của Đảng:
+                </h4>
+                <ul class="space-y-2 mb-6">
+                  <li class="flex items-start gap-2">
+                    <span class="text-yellow-400 mt-1">▸</span>
+                    <span
+                      >Chuyển từ khởi nghĩa từng phần sang chiến tranh cách
+                      mạng</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-yellow-400 mt-1">▸</span>
+                    <span
+                      >Kết hợp <strong>ba mũi giáp công</strong> (quân sự, chính
+                      trị, binh vận) trên
+                      <strong>ba vùng chiến lược</strong></span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-yellow-400 mt-1">▸</span>
+                    <span
+                      >Thành lập
+                      <strong class="text-yellow-300"
+                        >Trung ương Cục miền Nam</strong
+                      >
+                      (10/1961) và
+                      <strong class="text-yellow-300"
+                        >Quân giải phóng miền Nam</strong
+                      >
+                      (2/1961)</span
+                    >
+                  </li>
+                </ul>
+
+                <h4 class="font-semibold text-green-400 mb-3">
+                  ⚔️ Thắng lợi tiêu biểu:
+                </h4>
+                <div class="space-y-3">
+                  <div
+                    class="bg-green-900/20 border border-green-500/30 rounded-lg p-4"
+                  >
+                    <div class="flex items-center gap-3 mb-1">
+                      <span
+                        class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"
+                        >2/1/1963</span
+                      >
+                      <h5 class="font-semibold text-green-400">
+                        Chiến thắng Ấp Bắc
+                      </h5>
+                    </div>
+                    <p class="text-sm text-gray-300">
+                      Chứng minh khả năng đánh bại quân chủ lực ngụy có Mỹ hỗ
+                      trợ.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-green-900/20 border border-green-500/30 rounded-lg p-4"
+                  >
+                    <div class="flex items-center gap-3 mb-1">
+                      <span
+                        class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"
+                        >1/11/1963</span
+                      >
+                      <h5 class="font-semibold text-green-400">
+                        Đảo chính lật đổ Ngô Đình Diệm
+                      </h5>
+                    </div>
+                    <p class="text-sm text-gray-300">
+                      Cao trào đấu tranh chính trị ở đô thị dẫn đến cuộc đảo
+                      chính.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-green-900/20 border border-green-500/30 rounded-lg p-4"
+                  >
+                    <div class="flex items-center gap-3 mb-1">
+                      <span
+                        class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded"
+                        >1964–1965</span
+                      >
+                      <h5 class="font-semibold text-green-400">
+                        Bình Giã, Ba Gia, Đồng Xoài
+                      </h5>
+                    </div>
+                    <p class="text-sm text-gray-300">
+                      Các chiến thắng lớn làm phá sản hoàn toàn chiến lược
+                      "Chiến tranh đặc biệt" của Mỹ.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Back to top -->
+          <div class="text-center pb-12">
+            <button
+              onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+              class="bg-gray-700 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              ↑ Về đầu trang
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="./history.js"></script>
+  </body>
+</html>

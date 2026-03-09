@@ -42,7 +42,10 @@ loginForm.addEventListener("submit", async (e) => {
       // Login successful
       const modal = document.getElementById("success-modal");
       modal.classList.remove("hidden");
-      localStorage.setItem("user", JSON.stringify({ username: user.username }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ username: user.username, id: user.id }),
+      );
       setTimeout(() => {
         modal.classList.add("hidden");
         window.location.href = "index.html";
@@ -77,3 +80,18 @@ window.addEventListener("scroll", function () {
     nav.classList.add("bg-transparent");
   }
 });
+
+// Mobile nav toggle
+(function initMobileNav() {
+  var toggle = document.getElementById("nav-toggle");
+  var menu = document.getElementById("mobile-menu");
+  if (!toggle || !menu) return;
+  toggle.addEventListener("click", function () {
+    menu.classList.toggle("hidden");
+  });
+  menu.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      menu.classList.add("hidden");
+    });
+  });
+})();

@@ -16,23 +16,93 @@
           class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center"
         >
           <div class="flex items-center space-x-6">
-            <h1 class="text-2xl font-bold">Lịch sử đảng cộng sản việt nam</h1>
+            <a href="index.html" class="text-white no-underline"
+              ><h1 class="text-2xl font-bold">
+                Lịch sử đảng cộng sản việt nam
+              </h1></a
+            >
           </div>
-          <div class="flex items-center space-x-6">
-            <a href="index.html" class="text-white-100 hover:text-olive-400"
+          <!-- Hamburger button (mobile) -->
+          <button
+            id="nav-toggle"
+            class="nav:hidden text-white focus:outline-none"
+            aria-label="Menu"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+
+          <!-- Nav links -->
+          <div class="hidden nav:flex items-center space-x-6" id="nav-right">
+            <a href="history.html" class="text-white-100 hover:text-olive-400"
               >Tìm hiểu về lịch sử</a
             >
             <a href="quiz.html" class="text-olive-100 hover:text-olive-400"
               >làm quiz</a
             >
-            <a href="#" class="text-olive-100 hover:text-olive-400">About me</a>
-            <a href="login.html" class="text-white hover:text-orange-400"
+            <a
+              href="index.html#about-me"
+              class="text-olive-100 hover:text-olive-400"
+              >About me</a
+            >
+            <a
+              href="login.html"
+              class="text-white hover:text-orange-400"
+              id="login-link"
               >Đăng nhập</a
             >
-            <a href="register.html" class="text-white hover:text-orange-400"
+            <a
+              href="register.html"
+              class="text-white hover:text-orange-400"
+              id="register-link"
               >Tạo tài khoản</a
             >
           </div>
+        </div>
+
+        <!-- Mobile nav menu -->
+        <div
+          id="mobile-menu"
+          class="nav:hidden hidden bg-black/90 backdrop-blur-sm px-4 pb-4 pt-2 space-y-3"
+        >
+          <a
+            href="history.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >Tìm hiểu về lịch sử</a
+          >
+          <a
+            href="quiz.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >Làm quiz</a
+          >
+          <a
+            href="index.html#about-me"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            >About me</a
+          >
+          <a
+            href="login.html"
+            class="block text-white/90 hover:text-yellow-400 py-2 border-b border-white/10"
+            id="mobile-login-link"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="block text-white/90 hover:text-yellow-400 py-2"
+            id="mobile-register-link"
+            >Tạo tài khoản</a
+          >
         </div>
       </nav>
 
@@ -56,10 +126,11 @@
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
               <p class="text-gray-700"><strong>⏱️ Thời gian:</strong> 5 phút</p>
               <p class="text-gray-700">
-                <strong>❓ Tổng câu hỏi:</strong> 10 câu
+                <strong>❓ Tổng câu hỏi:</strong> 25 câu ngẫu nhiên
               </p>
               <p class="text-gray-700">
-                <strong>🎯 Điểm tối đa:</strong> 100 điểm
+                <strong>🏆 Xếp hạng:</strong> Câu đúng nhiều hơn thắng — nếu
+                bằng nhau, thời gian ít hơn thắng
               </p>
             </div>
             <button
@@ -85,11 +156,11 @@
                   <div class="text-3xl font-bold text-gray-800" id="score">
                     0
                   </div>
-                  <p class="text-gray-600 text-sm">Điểm</p>
+                  <p class="text-gray-600 text-sm">Câu Đúng</p>
                 </div>
                 <div class="text-center flex-1">
                   <div class="text-3xl font-bold text-gray-800" id="progress">
-                    1/10
+                    1/25
                   </div>
                   <p class="text-gray-600 text-sm">Câu hỏi</p>
                 </div>
@@ -144,9 +215,37 @@
                   </p>
                 </div>
               </div>
-              <p class="text-gray-700">
+              <p class="text-gray-700 mb-1">
                 <strong>Tỷ Lệ Chính Xác:</strong> <span id="accuracy">0%</span>
               </p>
+              <p class="text-gray-700">
+                <strong>⏱️ Thời Gian:</strong>
+                <span id="time-taken-display">-</span>
+              </p>
+            </div>
+
+            <!-- Leaderboard -->
+            <div id="leaderboard" class="hidden mb-6">
+              <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                🏆 Bảng Xếp Hạng
+              </h3>
+              <div id="leaderboard-loading" class="text-gray-500">
+                Đang tải...
+              </div>
+              <div id="leaderboard-list" class="hidden">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-blue-100">
+                      <th class="p-2 border">#</th>
+                      <th class="p-2 border">Username</th>
+                      <th class="p-2 border text-center">Câu Đúng</th>
+                      <th class="p-2 border text-center">Thời Gian</th>
+                      <th class="p-2 border">Ngày</th>
+                    </tr>
+                  </thead>
+                  <tbody id="leaderboard-body"></tbody>
+                </table>
+              </div>
             </div>
 
             <div class="space-y-3">
@@ -168,6 +267,8 @@
       </div>
     </div>
 
+    <script src="../shared.js"></script>
+    <script src="../questions.js"></script>
     <script src="./quiz.js"></script>
   </body>
 </html>

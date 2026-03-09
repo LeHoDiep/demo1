@@ -73,13 +73,18 @@ form.addEventListener("submit", async (e) => {
       },
     );
     if (response.ok) {
-      const modal = document.getElementById("success-modal");
-      modal.classList.remove("hidden");
-      localStorage.setItem("user", JSON.stringify({ username: username }));
-      setTimeout(() => {
-        modal.classList.add("hidden");
-        window.location.href = "index.html";
-      }, 2000);
+      response.json().then((user) => {
+        const modal = document.getElementById("success-modal");
+        modal.classList.remove("hidden");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ username: user.username, id: user.id }),
+        );
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          window.location.href = "index.html";
+        }, 2000);
+      });
     } else {
       alert("Đăng ký thất bại!");
     }
@@ -98,3 +103,18 @@ window.addEventListener("scroll", function () {
     nav.classList.add("bg-transparent");
   }
 });
+
+// Mobile nav toggle
+(function initMobileNav() {
+  var toggle = document.getElementById("nav-toggle");
+  var menu = document.getElementById("mobile-menu");
+  if (!toggle || !menu) return;
+  toggle.addEventListener("click", function () {
+    menu.classList.toggle("hidden");
+  });
+  menu.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      menu.classList.add("hidden");
+    });
+  });
+})();

@@ -3,22 +3,37 @@ const path = require("path");
 
 const distPagesDir = path.join(__dirname, "dist", "pages");
 
+// Cache file contents so shared files can be inlined into multiple HTMLs
+const fileCache = {};
+function readCached(filePath) {
+  if (!fileCache[filePath]) {
+    fileCache[filePath] = fs.readFileSync(filePath, "utf8");
+  }
+  return fileCache[filePath];
+}
+
+// Resolve asset path: try original, then fallback to same dir (after flatten)
+function resolveAsset(htmlDir, relPath) {
+  let full = path.resolve(htmlDir, relPath);
+  if (fs.existsSync(full)) return full;
+  full = path.join(htmlDir, path.basename(relPath));
+  if (fs.existsSync(full)) return full;
+  return null;
+}
+
 function inlineAssetsInHtml(htmlPath) {
   let html = fs.readFileSync(htmlPath, "utf8");
   const htmlDir = path.dirname(htmlPath);
-  const assetsToDelete = [];
+  const inlinedFiles = [];
 
   // Inline CSS
   html = html.replace(
     /<link rel="stylesheet" href="(.+?\.css)"[^>]*>/g,
     (match, cssPath) => {
-      const fullCssPath = path.resolve(htmlDir, cssPath);
-      if (fs.existsSync(fullCssPath)) {
-        // Delete local CSS files only (same directory)
-        if (fullCssPath.startsWith(htmlDir)) {
-          assetsToDelete.push(fullCssPath);
-        }
-        const css = fs.readFileSync(fullCssPath, "utf8");
+      const fullPath = resolveAsset(htmlDir, cssPath);
+      if (fullPath) {
+        inlinedFiles.push(fullPath);
+        const css = readCached(fullPath);
         return `<style>\n${css}\n</style>`;
       }
       return match;
@@ -29,11 +44,10 @@ function inlineAssetsInHtml(htmlPath) {
   html = html.replace(
     /<script src="(.+?\.js)"[^>]*><\/script>/g,
     (match, jsPath) => {
-      const fullJsPath = path.resolve(htmlDir, jsPath);
-      // Only inline and delete local JS files (in same directory)
-      if (fs.existsSync(fullJsPath) && fullJsPath.startsWith(htmlDir)) {
-        assetsToDelete.push(fullJsPath);
-        const js = fs.readFileSync(fullJsPath, "utf8");
+      const fullPath = resolveAsset(htmlDir, jsPath);
+      if (fullPath) {
+        inlinedFiles.push(fullPath);
+        const js = readCached(fullPath);
         return `<script>\n${js}\n</script>`;
       }
       return match;
@@ -42,24 +56,27 @@ function inlineAssetsInHtml(htmlPath) {
 
   fs.writeFileSync(htmlPath, html);
   console.log(`✓ Inlined assets for ${path.basename(htmlPath)}`);
-
-  // Delete original CSS and JS files
-  assetsToDelete.forEach((filepath) => {
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
-      console.log(`  → Deleted ${path.basename(filepath)}`);
-    }
-  });
+  return inlinedFiles;
 }
 
-// Find and inline all HTML files in dist/pages root level
+// Find and inline all HTML files, then clean up
 function inlineHtmlFiles(dir) {
   const files = fs.readdirSync(dir, { withFileTypes: true });
+  const allInlinedFiles = new Set();
 
   files.forEach((file) => {
     const fullPath = path.join(dir, file.name);
     if (file.isFile() && file.name.endsWith(".html")) {
-      inlineAssetsInHtml(fullPath);
+      const inlined = inlineAssetsInHtml(fullPath);
+      inlined.forEach((f) => allInlinedFiles.add(f));
+    }
+  });
+
+  // Delete inlined assets after ALL HTML files have been processed
+  allInlinedFiles.forEach((filepath) => {
+    if (fs.existsSync(filepath)) {
+      fs.unlinkSync(filepath);
+      console.log(`  → Deleted ${path.basename(filepath)}`);
     }
   });
 }
