@@ -4,7 +4,7 @@
   "description": "A Tailwind CSS project",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"tailwindcss -i ./src/css/input.css -o ./dist/css/output.css --watch\" \"cpx ./src/images/**/* ./dist/images --watch\"",
+    "dev": "concurrently \"tailwindcss -i ./src/css/input.css -o ./dist/css/output.css --watch\" \"cpx ./src/images/**/* ./dist/images --watch\" \"node watch.js\"",
     "build": "tailwindcss -i ./src/css/input.css -o ./dist/css/output.css --minify && cpx ./src/images/**/* ./dist/images && node flatten.js && node inline.js",
     "copy-images": "cpx ./src/images/**/* ./dist/images --watch"
   },

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trò Chơi Lịch Sử Đảng</title>
+    <link rel="stylesheet" href="../../dist/css/output.css" />
+    <link rel="stylesheet" href="./quiz.css" />
+  </head>
+  <body>
+    <div class="min-h-screen bg-orange-950">
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-transparent shadow-lg text-white transition-all duration-300"
+      >
+        <div
+          class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center"
+        >
+          <div class="flex items-center space-x-6">
+            <h1 class="text-2xl font-bold">Lịch sử đảng cộng sản việt nam</h1>
+          </div>
+          <div class="flex items-center space-x-6">
+            <a href="index.html" class="text-white-100 hover:text-olive-400"
+              >Tìm hiểu về lịch sử</a
+            >
+            <a href="quiz.html" class="text-olive-100 hover:text-olive-400"
+              >làm quiz</a
+            >
+            <a href="#" class="text-olive-100 hover:text-olive-400">About me</a>
+            <a href="login.html" class="text-white hover:text-orange-400"
+              >Đăng nhập</a
+            >
+            <a href="register.html" class="text-white hover:text-orange-400"
+              >Tạo tài khoản</a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Quiz Container -->
+      <div
+        class="pt-24 pb-12 min-h-screen bg-gradient-to-b from-orange-950 to-orange-900"
+      >
+        <div class="max-w-2xl mx-auto px-4">
+          <!-- Start Screen -->
+          <div
+            id="start-screen"
+            class="bg-white rounded-lg shadow-lg p-8 text-center"
+          >
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">
+              Trắc Nghiệm Lịch Sử Đảng
+            </h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Kiểm tra kiến thức của bạn về lịch sử Đảng Cộng Sản Việt Nam. Trả
+              lời đúng càng nhiều câu hỏi càng tốt trong thời gian giới hạn.
+            </p>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+              <p class="text-gray-700"><strong>⏱️ Thời gian:</strong> 5 phút</p>
+              <p class="text-gray-700">
+                <strong>❓ Tổng câu hỏi:</strong> 10 câu
+              </p>
+              <p class="text-gray-700">
+                <strong>🎯 Điểm tối đa:</strong> 100 điểm
+              </p>
+            </div>
+            <button
+              onclick="startQuiz()"
+              class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold text-lg"
+            >
+              Bắt Đầu Trò Chơi
+            </button>
+          </div>
+
+          <!-- Quiz Screen -->
+          <div id="quiz-screen" class="hidden">
+            <!-- Header with timer and progress -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+              <div class="flex justify-between items-center mb-4">
+                <div class="text-center flex-1">
+                  <div class="text-5xl font-bold text-blue-600" id="timer">
+                    05:00
+                  </div>
+                  <p class="text-gray-600 text-sm">Thời gian còn lại</p>
+                </div>
+                <div class="text-center flex-1">
+                  <div class="text-3xl font-bold text-gray-800" id="score">
+                    0
+                  </div>
+                  <p class="text-gray-600 text-sm">Điểm</p>
+                </div>
+                <div class="text-center flex-1">
+                  <div class="text-3xl font-bold text-gray-800" id="progress">
+                    1/10
+                  </div>
+                  <p class="text-gray-600 text-sm">Câu hỏi</p>
+                </div>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  id="progress-bar"
+                  class="bg-blue-600 h-2 rounded-full"
+                  style="width: 10%"
+                ></div>
+              </div>
+            </div>
+
+            <!-- Question -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+              <h3
+                class="text-2xl font-bold text-gray-800 mb-6"
+                id="question"
+              ></h3>
+
+              <!-- Answers -->
+              <div class="space-y-3" id="answers-container"></div>
+            </div>
+          </div>
+
+          <!-- Result Screen -->
+          <div
+            id="result-screen"
+            class="hidden bg-white rounded-lg shadow-lg p-8 text-center"
+          >
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Kết Quả</h2>
+            <div class="text-6xl font-bold text-blue-600 mb-4" id="final-score">
+              0
+            </div>
+            <p class="text-xl text-gray-600 mb-8" id="result-message"></p>
+
+            <div class="bg-gray-50 rounded-lg p-6 mb-8">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-gray-600">Câu Đúng</p>
+                  <p
+                    class="text-3xl font-bold text-green-600"
+                    id="correct-count"
+                  >
+                    0
+                  </p>
+                </div>
+                <div>
+                  <p class="text-gray-600">Câu Sai</p>
+                  <p class="text-3xl font-bold text-red-600" id="wrong-count">
+                    0
+                  </p>
+                </div>
+              </div>
+              <p class="text-gray-700">
+                <strong>Tỷ Lệ Chính Xác:</strong> <span id="accuracy">0%</span>
+              </p>
+            </div>
+
+            <div class="space-y-3">
+              <button
+                onclick="startQuiz()"
+                class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold"
+              >
+                Chơi Lại
+              </button>
+              <a
+                href="index.html"
+                class="block w-full bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-bold text-center"
+              >
+                Về Trang Chủ
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./quiz.js"></script>
+  </body>
+</html>

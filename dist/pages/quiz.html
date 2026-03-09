@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tailwind CSS Project</title>
+    <title>Trò Chơi Lịch Sử Đảng</title>
     <style>
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
@@ -1488,7 +1488,37 @@ video {
 
 </style>
     <style>
-/* Index page specific styles */
+/* Quiz page specific styles */
+
+.answer-btn {
+  transition: all 0.3s ease;
+}
+
+.answer-btn:hover:not(:disabled) {
+  transform: translateX(4px);
+}
+
+.answer-btn.selected {
+  border-color: rgb(59, 130, 246);
+  background-color: rgb(219, 234, 254);
+}
+
+.answer-btn.correct {
+  border-color: rgb(34, 197, 94);
+  background-color: rgb(220, 252, 231);
+  color: rgb(22, 163, 74);
+}
+
+.answer-btn.incorrect {
+  border-color: rgb(239, 68, 68);
+  background-color: rgb(254, 226, 226);
+  color: rgb(220, 38, 38);
+}
+
+.answer-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
 
 </style>
   </head>
@@ -1503,349 +1533,380 @@ video {
           <div class="flex items-center space-x-6">
             <h1 class="text-2xl font-bold">Lịch sử đảng cộng sản việt nam</h1>
           </div>
-          <div class="flex items-center space-x-6" id="nav-right">
-            <a href="#" class="text-white-100 hover:text-olive-400"
+          <div class="flex items-center space-x-6">
+            <a href="index.html" class="text-white-100 hover:text-olive-400"
               >Tìm hiểu về lịch sử</a
             >
             <a href="quiz.html" class="text-olive-100 hover:text-olive-400"
               >làm quiz</a
             >
             <a href="#" class="text-olive-100 hover:text-olive-400">About me</a>
-            <a
-              href="login.html"
-              class="text-white hover:text-orange-400"
-              id="login-link"
+            <a href="login.html" class="text-white hover:text-orange-400"
               >Đăng nhập</a
             >
-            <a
-              href="register.html"
-              class="text-white hover:text-orange-400"
-              id="register-link"
+            <a href="register.html" class="text-white hover:text-orange-400"
               >Tạo tài khoản</a
             >
           </div>
         </div>
       </nav>
 
-      <!-- Hero Section -->
-      <section
-        class="bg-home relative h-screen bg-gradient-to-br from-blue-600 to-purple-800 overflow-hidden"
-        style="
-          background-image: url(../images/bg1.jpg);
-          background-size: cover;
-          background-position: center;
-        "
+      <!-- Quiz Container -->
+      <div
+        class="pt-24 pb-12 min-h-screen bg-gradient-to-b from-orange-950 to-orange-900"
       >
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/40"></div>
-
-        <!-- Content -->
-        <div
-          class="relative h-screen flex items-center justify-center max-w-6xl mx-auto px-4 py-4 flex justify-between items-center"
-        >
-          <div class="text-white text-7xl md:text-7xl font-bold text-center">
-            <h1 class="mb-5">Khám phá Đảng</h1>
-            <p class="text-white text-3xl md:text-3xl text-center font-normal">
-              Nền tảng tổng hợp lịch sử, ngắn gọn và nguồn tham khảo tin cậy
-              giúp bạn hiểu nhanh và sâu về quá trình cách mạng và tổ chức của
-              Đảng.
+        <div class="max-w-2xl mx-auto px-4">
+          <!-- Start Screen -->
+          <div
+            id="start-screen"
+            class="bg-white rounded-lg shadow-lg p-8 text-center"
+          >
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">
+              Trắc Nghiệm Lịch Sử Đảng
+            </h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Kiểm tra kiến thức của bạn về lịch sử Đảng Cộng Sản Việt Nam. Trả
+              lời đúng càng nhiều câu hỏi càng tốt trong thời gian giới hạn.
             </p>
-          </div>
-        </div>
-      </section>
-      <!-- Articles Carousel Section -->
-      <section class="py-16" style="background-color: rgb(39, 39, 40)">
-        <div class="max-w-6xl mx-auto px-4">
-          <h2 class="text-4xl font-bold text-white mb-12 text-center">
-            Nội dung lịch sử nổi bật
-          </h2>
-
-          <div class="relative">
-            <!-- Carousel Container -->
-            <div class="overflow-hidden rounded-lg">
-              <div class="carousel-items" id="carousel-container"></div>
-            </div>
-
-            <!-- Navigation Buttons -->
-            <button
-              onclick="prevSlide()"
-              class="absolute -left-10 top-1/2 -translate-y-1/2 -translate-x-12 bg-transparent border border-white/50 text-white p-3 rounded-full hover:border-white hover:bg-white/10 transition-all m-4"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 19l-7-7 7-7"
-                ></path>
-              </svg>
-            </button>
-            <button
-              onclick="nextSlide()"
-              class="absolute -right-10 top-1/2 -translate-y-1/2 translate-x-12 bg-transparent border border-white/50 text-white p-3 rounded-full hover:border-white hover:bg-white/10 transition-all m-4"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
-              </svg>
-            </button>
-
-            <!-- Indicators -->
-            <div
-              class="flex justify-center gap-3 mt-8"
-              id="indicators-container"
-            ></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- section giới thiệu trò chơi lịch sử -->
-      <section
-        class="history-game-intro py-16"
-        style="
-          background: linear-gradient(
-            to right,
-            rgb(39, 39, 40),
-            rgb(48, 48, 63)
-          );
-        "
-      >
-        <div class="max-w-6xl mx-auto px-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <!-- Left side: Content -->
-            <div>
-              <h2 class="text-4xl font-bold text-white mb-6">
-                Thử Thách Kiến Thức Lịch Sử Đảng
-              </h2>
-              <p class="text-lg text-white/90 mb-4">
-                Kiểm tra kiến thức của bạn về lịch sử Đảng Cộng Sản Việt Nam qua
-                các câu hỏi trắc nghiệm vừa thú vị vừa bổ ích.
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+              <p class="text-gray-700"><strong>⏱️ Thời gian:</strong> 5 phút</p>
+              <p class="text-gray-700">
+                <strong>❓ Tổng câu hỏi:</strong> 10 câu
               </p>
-              <ul class="space-y-3 mb-8">
-                <li class="flex items-center text-white/85">
-                  <span
-                    class="inline-block w-2 h-2 bg-yellow-300 rounded-full mr-3"
-                  ></span>
-                  <span
-                    ><strong>Câu hỏi Ngẫu Nhiên:</strong> Mỗi lần chơi là một
-                    trải nghiệm khác nhau</span
-                  >
-                </li>
-                <li class="flex items-center text-white/85">
-                  <span
-                    class="inline-block w-2 h-2 bg-yellow-300 rounded-full mr-3"
-                  ></span>
-                  <span
-                    ><strong>Bấm Giờ:</strong> Thách thức bản thân với giới hạn
-                    thời gian</span
-                  >
-                </li>
-                <li class="flex items-center text-white/85">
-                  <span
-                    class="inline-block w-2 h-2 bg-yellow-300 rounded-full mr-3"
-                  ></span>
-                  <span
-                    ><strong>Xếp Hạng Thành Tích:</strong> chứng tỏ mình trên
-                    bảng xếp hạng thành tích</span
-                  >
-                </li>
-                <li class="flex items-center text-white/85">
-                  <span
-                    class="inline-block w-2 h-2 bg-yellow-300 rounded-full mr-3"
-                  ></span>
-                  <span
-                    ><strong>Ôn Lại Kiến Thức:</strong> Học hỏi thêm từ các câu
-                    hỏi và giải thích chi tiết</span
-                  >
-                </li>
-              </ul>
-              <a
-                href="quiz.html"
-                class="inline-block bg-yellow-400 text-blue-700 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors text-lg"
-              >
-                🎮 Chơi Ngay
-              </a>
+              <p class="text-gray-700">
+                <strong>🎯 Điểm tối đa:</strong> 100 điểm
+              </p>
+            </div>
+            <button
+              onclick="startQuiz()"
+              class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold text-lg"
+            >
+              Bắt Đầu Trò Chơi
+            </button>
+          </div>
+
+          <!-- Quiz Screen -->
+          <div id="quiz-screen" class="hidden">
+            <!-- Header with timer and progress -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+              <div class="flex justify-between items-center mb-4">
+                <div class="text-center flex-1">
+                  <div class="text-5xl font-bold text-blue-600" id="timer">
+                    05:00
+                  </div>
+                  <p class="text-gray-600 text-sm">Thời gian còn lại</p>
+                </div>
+                <div class="text-center flex-1">
+                  <div class="text-3xl font-bold text-gray-800" id="score">
+                    0
+                  </div>
+                  <p class="text-gray-600 text-sm">Điểm</p>
+                </div>
+                <div class="text-center flex-1">
+                  <div class="text-3xl font-bold text-gray-800" id="progress">
+                    1/10
+                  </div>
+                  <p class="text-gray-600 text-sm">Câu hỏi</p>
+                </div>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  id="progress-bar"
+                  class="bg-blue-600 h-2 rounded-full"
+                  style="width: 10%"
+                ></div>
+              </div>
             </div>
 
-            <!-- Right side: Visual -->
-            <div
-              class="bg-white/10 backdrop-blur-sm rounded-lg p-8 border border-white/20"
-            >
-              <div class="space-y-6">
-                <div
-                  class="bg-white/5 p-6 rounded-lg border-l-4 border-yellow-400"
-                >
-                  <div class="text-3xl font-bold text-yellow-300 mb-2">
-                    ⏱️ Bấm Giờ
-                  </div>
-                  <p class="text-white/80">
-                    Hoàn thành bài trắc nghiệm trong thời gian giới hạn
+            <!-- Question -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+              <h3
+                class="text-2xl font-bold text-gray-800 mb-6"
+                id="question"
+              ></h3>
+
+              <!-- Answers -->
+              <div class="space-y-3" id="answers-container"></div>
+            </div>
+          </div>
+
+          <!-- Result Screen -->
+          <div
+            id="result-screen"
+            class="hidden bg-white rounded-lg shadow-lg p-8 text-center"
+          >
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Kết Quả</h2>
+            <div class="text-6xl font-bold text-blue-600 mb-4" id="final-score">
+              0
+            </div>
+            <p class="text-xl text-gray-600 mb-8" id="result-message"></p>
+
+            <div class="bg-gray-50 rounded-lg p-6 mb-8">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-gray-600">Câu Đúng</p>
+                  <p
+                    class="text-3xl font-bold text-green-600"
+                    id="correct-count"
+                  >
+                    0
                   </p>
                 </div>
-                <div
-                  class="bg-white/5 p-6 rounded-lg border-l-4 border-blue-300"
-                >
-                  <div class="text-3xl font-bold text-blue-300 mb-2">
-                    🎯 Trắc Nghiệm
-                  </div>
-                  <p class="text-white/80">
-                    Lựa chọn đáp án đúng từ các tùy chọn đa dạng
-                  </p>
-                </div>
-                <div
-                  class="bg-white/5 p-6 rounded-lg border-l-4 border-purple-300"
-                >
-                  <div class="text-3xl font-bold text-purple-300 mb-2">
-                    🏆 Xếp Hạng
-                  </div>
-                  <p class="text-white/80">
-                    Chinh phục vơi trí cao nhất trên bảng xếp hạng
+                <div>
+                  <p class="text-gray-600">Câu Sai</p>
+                  <p class="text-3xl font-bold text-red-600" id="wrong-count">
+                    0
                   </p>
                 </div>
               </div>
+              <p class="text-gray-700">
+                <strong>Tỷ Lệ Chính Xác:</strong> <span id="accuracy">0%</span>
+              </p>
+            </div>
+
+            <div class="space-y-3">
+              <button
+                onclick="startQuiz()"
+                class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold"
+              >
+                Chơi Lại
+              </button>
+              <a
+                href="index.html"
+                class="block w-full bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-bold text-center"
+              >
+                Về Trang Chủ
+              </a>
             </div>
           </div>
         </div>
-      </section>
-      <main class="max-w-6xl mx-auto px-4 py-8"></main>
-      <div style="height: 100vh"></div>
+      </div>
     </div>
 
     <script>
-// Carousel data
-const articles = [
+// Quiz questions about Vietnamese Communist Party history
+const quizQuestions = [
   {
-    title: "Trung bình lớp học ai tờ",
-    content:
-      "hình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.",
-    image: "../images/rp1.jpg",
+    question: "Đảng Cộng Sản Việt Nam được thành lập vào năm nào?",
+    answers: ["1925", "1930", "1935", "1940"],
+    correct: 1,
+    explanation:
+      "Đảng Cộng Sản Việt Nam được thành lập vào ngày 3 tháng 2 năm 1930 tại Hồng Kông dưới sự lãnh đạo của Hồ Chí Minh.",
   },
   {
-    title: "Tiêu đề bài báo 2",
-    content:
-      "Đây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: "../images/rp2.jpg",
+    question: "Hồ Chí Minh được bầu làm Tổng Bí Thư của Đảng vào năm nào?",
+    answers: ["1930", "1941", "1945", "1950"],
+    correct: 1,
+    explanation:
+      "Hồ Chí Minh được bầu làm Tổng Bí Thư lần đầu tiên vào năm 1941 tại Tuần Châu, Vịnh Hạ Long.",
   },
   {
-    title: "Tiêu đề bài báo 3",
-    content:
-      "Bài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-    image: "../images/rp3.jpg",
+    question: "Kỳ Đại hội Đảng thứ mấy đã đạt được Độc lập?",
+    answers: ["VI", "VII", "VIII", "IX"],
+    correct: 2,
+    explanation:
+      "Kỳ VIII của Đại hội Đảng được coi là kỳ đại hội lịch sử diễn ra trước Cách mạng Tháng Tám 1945.",
   },
   {
-    title: "Tiêu đề bài báo 4",
-    content:
-      "Bài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
-    image: "../images/rp4.jpg",
+    question:
+      "Cách mạng Tháng Tám 1945 được Đảng lãnh đạo đã giải phóng miền nước nào trước?",
+    answers: ["Nam", "Bắc", "Trung", "Cả nước"],
+    correct: 1,
+    explanation:
+      "Cách mạng Tháng Tám 1945 giải phóng Bắc Kỳ, thủ phủ là Hà Nội, sau đó lan rộng sang các địa phương khác.",
   },
   {
-    title: "Tiêu đề bài báo 5",
-    content:
-      "Bài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
-    image: "../images/rp5.jpg",
+    question: "Đại hội Đảng Cộng Sản Việt Nam thứ II diễn ra ở đâu?",
+    answers: ["Hà Nội", "Hải Phòng", "Viêng Chân (Lào)", "Quảng Châu"],
+    correct: 2,
+    explanation:
+      "Đại hội II của Đảng được tổ chức tại Viêng Chân, Lào (nay là Viêng Chân) vào năm 1951.",
+  },
+  {
+    question: "Kháng chiến chống Pháp (1945-1954) kéo dài bao lâu?",
+    answers: ["7 năm", "8 năm", "9 năm", "10 năm"],
+    correct: 2,
+    explanation:
+      "Kháng chiến chống Pháp kéo dài 9 năm (1945-1954), kết thúc với chiến thắng Điện Biên Phủ.",
+  },
+  {
+    question: "Chiến thắng Điện Biên Phủ xảy ra vào năm nào?",
+    answers: ["1952", "1953", "1954", "1955"],
+    correct: 2,
+    explanation:
+      "Chiến thắng Điện Biên Phủ diễn ra từ ngày 13/3 đến 7/5/1954, đánh dấu bước ngoặt của kháng chiến.",
+  },
+  {
+    question: "Hiệp định Genève 1954 định chia Việt Nam bằng đường gì?",
+    answers: ["Vĩ tuyến 17", "Vĩ tuyến 19", "Vĩ tuyến 15", "Vĩ tuyến 21"],
+    correct: 0,
+    explanation:
+      "Hiệp định Genève năm 1954 quy định tạm thời chia Việt Nam bằng vĩ tuyến 17.",
+  },
+  {
+    question:
+      "Đảng Cộng Sản Việt Nam ngành lãnh đạo kháng chiến chống Mỹ cứu nước trong khoảng thời gian nào?",
+    answers: ["1955-1965", "1959-1975", "1960-1975", "1962-1973"],
+    correct: 2,
+    explanation:
+      "Kháng chiến chống Mỹ cứu nước dưới sự lãnh đạo của Đảng Cộng Sản Việt Nam kéo dài từ 1960 đến 1975.",
+  },
+  {
+    question: "Chiến dịch Tây Nguyên lịch sử diễn ra khi nào?",
+    answers: ["1972", "1973", "1974", "1975"],
+    correct: 3,
+    explanation:
+      "Chiến dịch Tây Nguyên được tiến hành vào cuối năm 1974 và đầu năm 1975 dẫn đến chiến thắng 30/4/1975.",
   },
 ];
 
-// Render carousel items
-function renderCarousel() {
-  const container = document.getElementById("carousel-container");
-  articles.forEach((article, index) => {
-    const item = document.createElement("div");
-    item.className = "carousel-item hidden";
-    item.innerHTML = `
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-lg shadow-lg">
-        <div class="h-96 bg-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
-          <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover" />
-        </div>
-        <div class="flex flex-col justify-center">
-          <h3 class="text-2xl font-bold text-gray-800 mb-4">${article.title}</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">${article.content}</p>
-          <a href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors w-max">Đọc thêm</a>
-        </div>
-      </div>
-    `;
-    container.appendChild(item);
-  });
+// Game state
+let currentQuestion = 0;
+let score = 0;
+let correctAnswers = 0;
+let wrongAnswers = 0;
+let timeLeft = 300; // 5 minutes in seconds
+let timerInterval = null;
+let gameStarted = false;
+let currentQuestions = [];
+
+// Shuffle array
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
-// Render indicators
-function renderIndicators() {
-  const container = document.getElementById("indicators-container");
-  articles.forEach((_, index) => {
+// Start quiz
+function startQuiz() {
+  // Select 10 random questions from the pool
+  currentQuestions = shuffleArray(quizQuestions).slice(0, 10);
+  currentQuestion = 0;
+  score = 0;
+  correctAnswers = 0;
+  wrongAnswers = 0;
+  timeLeft = 300;
+  gameStarted = true;
+
+  document.getElementById("start-screen").classList.add("hidden");
+  document.getElementById("quiz-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+
+  showQuestion();
+  startTimer();
+}
+
+// Start timer
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+// Update timer display
+function updateTimerDisplay() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  document.getElementById("timer").textContent =
+    `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+// Show question
+function showQuestion() {
+  if (currentQuestion >= currentQuestions.length || timeLeft <= 0) {
+    endQuiz();
+    return;
+  }
+
+  const question = currentQuestions[currentQuestion];
+  document.getElementById("question").textContent = question.question;
+  document.getElementById("progress").textContent = `${currentQuestion + 1}/10`;
+  document.getElementById("progress-bar").style.width =
+    `${((currentQuestion + 1) / 10) * 100}%`;
+
+  const container = document.getElementById("answers-container");
+  container.innerHTML = "";
+
+  question.answers.forEach((answer, index) => {
     const button = document.createElement("button");
-    button.className = `indicator w-3 h-3 rounded-full transition-all ${index === 0 ? "bg-blue-600" : "bg-gray-300"}`;
-    button.onclick = () => goToSlide(index);
+    button.className =
+      "w-full text-left p-4 border-2 border-gray-300 rounded-lg answer-btn hover:border-blue-500 transition-colors";
+    button.textContent = answer;
+    button.onclick = () => selectAnswer(index);
     container.appendChild(button);
   });
 }
 
-let currentSlide = 0;
-let totalSlides = articles.length;
-let autoplayInterval;
+// Select answer
+function selectAnswer(index) {
+  if (gameStarted === false) return;
 
-function showSlide(n) {
-  const items = document.querySelectorAll(".carousel-item");
-  const indicators = document.querySelectorAll(".indicator");
+  const question = currentQuestions[currentQuestion];
+  const buttons = document.querySelectorAll(".answer-btn");
 
-  items.forEach((item) => item.classList.add("hidden"));
-  indicators.forEach((ind) => {
-    ind.classList.remove("bg-blue-600");
-    ind.classList.add("bg-gray-300");
-  });
+  // Disable all buttons
+  buttons.forEach((btn) => (btn.disabled = true));
 
-  items[n].classList.remove("hidden");
-  indicators[n].classList.remove("bg-gray-300");
-  indicators[n].classList.add("bg-blue-600");
+  if (index === question.correct) {
+    buttons[index].classList.add("correct");
+    score += 10;
+    correctAnswers++;
+  } else {
+    buttons[index].classList.add("incorrect");
+    buttons[question.correct].classList.add("correct");
+    wrongAnswers++;
+  }
+
+  document.getElementById("score").textContent = score;
+
+  // Move to next question after 1 second
+  setTimeout(() => {
+    currentQuestion++;
+    if (currentQuestion < currentQuestions.length && timeLeft > 0) {
+      showQuestion();
+    } else {
+      endQuiz();
+    }
+  }, 1000);
 }
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  showSlide(currentSlide);
+// End quiz
+function endQuiz() {
+  clearInterval(timerInterval);
+  gameStarted = false;
+
+  document.getElementById("quiz-screen").classList.add("hidden");
+  document.getElementById("result-screen").classList.remove("hidden");
+
+  const accuracy = Math.round((correctAnswers / 10) * 100);
+  let message = "";
+
+  if (accuracy >= 90) {
+    message = "🏆 Xuất sắc! Bạn là chuyên gia lịch sử Đảng!";
+  } else if (accuracy >= 70) {
+    message = "👏 Rất tốt! Bạn có kiến thức vững về lịch sử Đảng!";
+  } else if (accuracy >= 50) {
+    message = "📚 Khá tốt! Hãy tiếp tục ôn tập để cải thiện hơn nữa!";
+  } else {
+    message = "💪 Cố gắng lên! Hãy ôn tập thêm và thử lại!";
+  }
+
+  document.getElementById("final-score").textContent = score;
+  document.getElementById("result-message").textContent = message;
+  document.getElementById("correct-count").textContent = correctAnswers;
+  document.getElementById("wrong-count").textContent = wrongAnswers;
+  document.getElementById("accuracy").textContent = `${accuracy}%`;
 }
 
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-  showSlide(currentSlide);
-}
-
-function goToSlide(n) {
-  currentSlide = n;
-  showSlide(currentSlide);
-}
-
-function startAutoplay() {
-  autoplayInterval = setInterval(() => {
-    nextSlide();
-  }, 5000);
-}
-
-function resetAutoplay() {
-  clearInterval(autoplayInterval);
-  startAutoplay();
-}
-
-// Render carousel on page load
-renderCarousel();
-renderIndicators();
-
-// Initialize first slide
-showSlide(0);
-startAutoplay();
-
+// Navigation scroll effect
 window.addEventListener("scroll", function () {
   const nav = document.querySelector("nav");
   if (window.scrollY > 100) {
@@ -1856,32 +1917,6 @@ window.addEventListener("scroll", function () {
     nav.classList.add("bg-transparent");
   }
 });
-
-// User menu logic
-const user = JSON.parse(localStorage.getItem("user"));
-if (user) {
-  document.getElementById("login-link").style.display = "none";
-  document.getElementById("register-link").style.display = "none";
-  const navRight = document.getElementById("nav-right");
-  const userDiv = document.createElement("div");
-  userDiv.className = "relative";
-  userDiv.innerHTML = `
-    <button id="user-menu-button" class="text-white hover:text-orange-400">Welcome, ${user.username} ▼</button>
-    <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-      <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
-      <a href="#" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
-    </div>
-  `;
-  navRight.appendChild(userDiv);
-  document.getElementById("user-menu-button").addEventListener("click", () => {
-    const menu = document.getElementById("user-menu");
-    menu.classList.toggle("hidden");
-  });
-  document.getElementById("logout-btn").addEventListener("click", () => {
-    localStorage.removeItem("user");
-    location.reload();
-  });
-}
 
 </script>
   </body>
