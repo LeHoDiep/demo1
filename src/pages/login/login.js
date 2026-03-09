@@ -54,13 +54,13 @@ loginForm.addEventListener("submit", async (e) => {
       // Login failed - could be wrong username or password
       const userExists = users.find((u) => u.username === username);
       if (!userExists) {
-        document.getElementById("username-error").textContent =
-          "Username không tồn tại";
-        document.getElementById("username-error").style.display = "block";
+        var ue = document.getElementById("username-error");
+        (ue.querySelector("span") || ue).textContent = "Username không tồn tại";
+        ue.style.display = "flex";
       } else {
-        document.getElementById("password-error").textContent =
-          "Password không đúng";
-        document.getElementById("password-error").style.display = "block";
+        var pe = document.getElementById("password-error");
+        (pe.querySelector("span") || pe).textContent = "Password không đúng";
+        pe.style.display = "flex";
       }
     }
   } catch (error) {

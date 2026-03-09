@@ -420,6 +420,15 @@ document.querySelectorAll('a[href="#about-me"]').forEach(function (link) {
         "Tổng Bí thư Đảng Cộng sản Việt Nam, Chủ tịch Hội đồng Nhà nước. Ông là nhà lý luận xuất sắc, đóng góp lớn cho cách mạng Việt Nam.",
       emoji: "📖",
     },
+    {
+      name: "Hà Huy Tập",
+      years: "1906 – 1941",
+      file: "Ha_Huy_Tap.jpg",
+      image: "",
+      description:
+        "Tổng Bí thư Đảng Cộng sản Đông Dương (1936-1938). Ông có công lớn trong việc khôi phục tổ chức Đảng sau thời kỳ khủng bố trắng và hy sinh anh dũng năm 1941.",
+      emoji: "🪶",
+    },
   ];
 
   const FM_MODEL_URL = "https://justadudewhohacks.github.io/face-api.js/models";

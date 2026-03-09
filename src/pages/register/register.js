@@ -38,8 +38,9 @@ form.addEventListener("submit", async (e) => {
     const existingUser = users.find((u) => u.username === username);
     if (existingUser) {
       const errorDiv = document.getElementById("username-error");
-      errorDiv.textContent = "Username đã tồn tại!";
-      errorDiv.style.display = "block";
+      (errorDiv.querySelector("span") || errorDiv).textContent =
+        "Username \u0111\u00e3 t\u1ed3n t\u1ea1i!";
+      errorDiv.style.display = "flex";
       return;
     } else {
       document.getElementById("username-error").style.display = "none";
@@ -51,8 +52,9 @@ form.addEventListener("submit", async (e) => {
 
   if (password !== confirmPassword) {
     const errorDiv = document.getElementById("password-error");
-    errorDiv.textContent = "Mật khẩu xác nhận không khớp!";
-    errorDiv.style.display = "block";
+    (errorDiv.querySelector("span") || errorDiv).textContent =
+      "Mật khẩu xác nhận không khớp!";
+    errorDiv.style.display = "flex";
     return;
   } else {
     document.getElementById("password-error").style.display = "none";
