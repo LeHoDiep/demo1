@@ -1,36 +1,60 @@
-// Carousel data
-const articles = [
-  {
-    title: "Trung bình lớp học ai tờ",
-    content:
-      "hình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.",
-    image: "../images/rp1.jpg",
-  },
-  {
-    title: "Tiêu đề bài báo 2",
-    content:
-      "Đây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: "../images/rp2.jpg",
-  },
-  {
-    title: "Tiêu đề bài báo 3",
-    content:
-      "Bài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-    image: "../images/rp3.jpg",
-  },
-  {
-    title: "Tiêu đề bài báo 4",
-    content:
-      "Bài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
-    image: "../images/rp4.jpg",
-  },
-  {
-    title: "Tiêu đề bài báo 5",
-    content:
-      "Bài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
-    image: "../images/rp5.jpg",
-  },
-];
+// Carousel data — read from localStorage (managed by articles page), fallback to defaults
+const ARTICLES_KEY = "articles_data";
+const articles = (function () {
+  try {
+    var all = JSON.parse(localStorage.getItem(ARTICLES_KEY)) || [];
+    var carousel = all
+      .filter(function (a) {
+        return a.showInCarousel;
+      })
+      .sort(function (a, b) {
+        return a.order - b.order;
+      });
+    if (carousel.length > 0) {
+      return carousel.map(function (a) {
+        return {
+          id: a.id,
+          title: a.title,
+          content: a.summary || a.content,
+          image: a.image,
+        };
+      });
+    }
+  } catch (e) {}
+  // Fallback defaults
+  return [
+    {
+      title: "Trung bình lớp học ai tờ",
+      content:
+        "hình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.",
+      image: "../images/rp1.jpg",
+    },
+    {
+      title: "Tiêu đề bài báo 2",
+      content:
+        "Đây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: "../images/rp2.jpg",
+    },
+    {
+      title: "Tiêu đề bài báo 3",
+      content:
+        "Bài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+      image: "../images/rp3.jpg",
+    },
+    {
+      title: "Tiêu đề bài báo 4",
+      content:
+        "Bài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
+      image: "../images/rp4.jpg",
+    },
+    {
+      title: "Tiêu đề bài báo 5",
+      content:
+        "Bài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+      image: "../images/rp5.jpg",
+    },
+  ];
+})();
 
 // Render carousel items
 function renderCarousel() {
@@ -46,7 +70,7 @@ function renderCarousel() {
         <div class="flex flex-col justify-center p-1 sm:p-2 md:p-0">
           <h3 class="text-base sm:text-lg md:text-2xl font-bold text-gray-800 mb-1 sm:mb-2 md:mb-4">${article.title}</h3>
           <p class="text-xs sm:text-sm md:text-base text-gray-600 mb-2 sm:mb-3 md:mb-6 leading-relaxed line-clamp-3 md:line-clamp-none">${article.content}</p>
-          <a href="#" class="inline-block bg-blue-600 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-lg hover:bg-blue-700 transition-colors w-max text-xs sm:text-sm md:text-base">Đọc thêm</a>
+          <a href="articles.html${article.id ? "?id=" + article.id : ""}" class="inline-block bg-blue-600 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-lg hover:bg-blue-700 transition-colors w-max text-xs sm:text-sm md:text-base">Đọc thêm</a>
         </div>
       </div>
     `;
@@ -144,6 +168,35 @@ startAutoplay();
       if (diffX < 0) nextSlide();
       else prevSlide();
       resetAutoplay();
+    }
+  });
+
+  // Mouse drag support
+  let isDragging = false;
+  container.addEventListener("mousedown", function (e) {
+    isDragging = true;
+    startX = e.clientX;
+    diffX = 0;
+    container.style.cursor = "grabbing";
+  });
+  container.addEventListener("mousemove", function (e) {
+    if (!isDragging) return;
+    diffX = e.clientX - startX;
+  });
+  container.addEventListener("mouseup", function () {
+    if (!isDragging) return;
+    isDragging = false;
+    container.style.cursor = "";
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) nextSlide();
+      else prevSlide();
+      resetAutoplay();
+    }
+  });
+  container.addEventListener("mouseleave", function () {
+    if (isDragging) {
+      isDragging = false;
+      container.style.cursor = "";
     }
   });
 })();
@@ -325,6 +378,63 @@ function prevTeamSlide() {
 }
 
 renderTeamCarousel();
+
+// Touch & mouse drag for team carousel
+(function initTeamSwipe() {
+  const carousel = document.getElementById("team-carousel");
+  if (!carousel) return;
+  let startX = 0,
+    diffX = 0,
+    isDragging = false;
+
+  carousel.addEventListener(
+    "touchstart",
+    function (e) {
+      startX = e.touches[0].clientX;
+      diffX = 0;
+    },
+    { passive: true },
+  );
+  carousel.addEventListener(
+    "touchmove",
+    function (e) {
+      diffX = e.touches[0].clientX - startX;
+    },
+    { passive: true },
+  );
+  carousel.addEventListener("touchend", function () {
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) nextTeamSlide();
+      else prevTeamSlide();
+    }
+  });
+
+  carousel.addEventListener("mousedown", function (e) {
+    isDragging = true;
+    startX = e.clientX;
+    diffX = 0;
+    carousel.style.cursor = "grabbing";
+  });
+  carousel.addEventListener("mousemove", function (e) {
+    if (!isDragging) return;
+    diffX = e.clientX - startX;
+  });
+  carousel.addEventListener("mouseup", function () {
+    if (!isDragging) return;
+    isDragging = false;
+    carousel.style.cursor = "";
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) nextTeamSlide();
+      else prevTeamSlide();
+    }
+  });
+  carousel.addEventListener("mouseleave", function () {
+    if (isDragging) {
+      isDragging = false;
+      carousel.style.cursor = "";
+    }
+  });
+})();
 
 // Smooth scroll for About me link
 document.querySelectorAll('a[href="#about-me"]').forEach(function (link) {
@@ -555,7 +665,7 @@ document.querySelectorAll('a[href="#about-me"]').forEach(function (link) {
   function fmRenderGallery() {
     var gallery = document.getElementById("fm-figures-gallery");
     if (!gallery) return;
-    gallery.innerHTML = fmFigures
+    var cards = fmFigures
       .map(function (f) {
         var src = f.image || fmImageBase + f.file;
         return (
@@ -578,6 +688,9 @@ document.querySelectorAll('a[href="#about-me"]').forEach(function (link) {
         );
       })
       .join("");
+    // Duplicate cards for seamless infinite scroll
+    gallery.innerHTML =
+      '<div class="fm-gallery-track">' + cards + cards + "</div>";
   }
 
   // File Upload

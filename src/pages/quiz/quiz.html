@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="./quiz.css" />
   </head>
   <body>
-    <div class="min-h-screen bg-orange-950">
+    <div class="min-h-screen bg-orange-950 relative overflow-hidden">
+      <!-- Decorative background elements -->
+      <div class="absolute inset-0 quiz-pattern opacity-10"></div>
+      <div
+        class="absolute -top-32 -left-32 w-96 h-96 bg-yellow-400/20 rounded-full blur-3xl quiz-float"
+      ></div>
+      <div
+        class="absolute top-1/2 -right-32 w-80 h-80 bg-red-500/20 rounded-full blur-3xl quiz-float-delay"
+      ></div>
+      <div
+        class="absolute bottom-1/4 left-1/4 w-72 h-72 bg-orange-500/15 rounded-full blur-3xl quiz-float"
+      ></div>
       <nav
         class="fixed top-0 left-0 right-0 z-50 bg-transparent shadow-lg text-white transition-all duration-300"
       >
@@ -107,14 +118,12 @@
       </nav>
 
       <!-- Quiz Container -->
-      <div
-        class="pt-24 pb-12 min-h-screen bg-gradient-to-b from-orange-950 to-orange-900"
-      >
+      <div class="pt-24 pb-12 min-h-screen relative z-10">
         <div class="max-w-2xl mx-auto px-4">
           <!-- Start Screen -->
           <div
             id="start-screen"
-            class="bg-white rounded-lg shadow-lg p-8 text-center"
+            class="bg-white rounded-2xl shadow-2xl p-8 text-center quiz-card-appear"
           >
             <h2 class="text-4xl font-bold text-gray-800 mb-4">
               Trắc Nghiệm Lịch Sử Đảng
@@ -123,7 +132,9 @@
               Kiểm tra kiến thức của bạn về lịch sử Đảng Cộng Sản Việt Nam. Trả
               lời đúng càng nhiều câu hỏi càng tốt trong thời gian giới hạn.
             </p>
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+            <div
+              class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-8"
+            >
               <p class="text-gray-700"><strong>⏱️ Thời gian:</strong> 5 phút</p>
               <p class="text-gray-700">
                 <strong>❓ Tổng câu hỏi:</strong> 25 câu ngẫu nhiên
@@ -135,7 +146,7 @@
             </div>
             <button
               onclick="startQuiz()"
-              class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold text-lg"
+              class="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-3 rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 font-bold text-lg shadow-lg shadow-red-500/25 hover:shadow-red-500/40 active:scale-[0.98]"
             >
               Bắt Đầu Trò Chơi
             </button>
@@ -144,10 +155,10 @@
           <!-- Quiz Screen -->
           <div id="quiz-screen" class="hidden">
             <!-- Header with timer and progress -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 mb-6">
               <div class="flex justify-between items-center mb-4">
                 <div class="text-center flex-1">
-                  <div class="text-5xl font-bold text-blue-600" id="timer">
+                  <div class="text-5xl font-bold text-red-600" id="timer">
                     05:00
                   </div>
                   <p class="text-gray-600 text-sm">Thời gian còn lại</p>
@@ -165,17 +176,17 @@
                   <p class="text-gray-600 text-sm">Câu hỏi</p>
                 </div>
               </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   id="progress-bar"
-                  class="bg-blue-600 h-2 rounded-full"
+                  class="bg-red-600 h-2.5 rounded-full"
                   style="width: 10%"
                 ></div>
               </div>
             </div>
 
             <!-- Question -->
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
               <h3
                 class="text-2xl font-bold text-gray-800 mb-6"
                 id="question"
@@ -189,10 +200,10 @@
           <!-- Result Screen -->
           <div
             id="result-screen"
-            class="hidden bg-white rounded-lg shadow-lg p-8 text-center"
+            class="hidden bg-white rounded-2xl shadow-2xl p-8 text-center quiz-card-appear"
           >
             <h2 class="text-4xl font-bold text-gray-800 mb-4">Kết Quả</h2>
-            <div class="text-6xl font-bold text-blue-600 mb-4" id="final-score">
+            <div class="text-6xl font-bold text-red-600 mb-4" id="final-score">
               0
             </div>
             <p class="text-xl text-gray-600 mb-8" id="result-message"></p>
@@ -235,7 +246,7 @@
               <div id="leaderboard-list" class="hidden">
                 <table class="w-full text-left border-collapse">
                   <thead>
-                    <tr class="bg-blue-100">
+                    <tr class="bg-orange-100">
                       <th class="p-2 border">#</th>
                       <th class="p-2 border">Username</th>
                       <th class="p-2 border text-center">Câu Đúng</th>
@@ -251,13 +262,13 @@
             <div class="space-y-3">
               <button
                 onclick="startQuiz()"
-                class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold"
+                class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 font-bold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 active:scale-[0.98]"
               >
                 Chơi Lại
               </button>
               <a
                 href="index.html"
-                class="block w-full bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-bold text-center"
+                class="block w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-bold text-center shadow-lg"
               >
                 Về Trang Chủ
               </a>

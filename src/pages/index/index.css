@@ -1,5 +1,16 @@
 /* Index page specific styles */
 
+/* ===== Carousel drag cursor ===== */
+#carousel-container,
+#team-carousel {
+  cursor: grab;
+  user-select: none;
+}
+#carousel-container:active,
+#team-carousel:active {
+  cursor: grabbing;
+}
+
 /* ===== Team Carousel ===== */
 .team-carousel-wrapper {
   position: relative;
@@ -253,19 +264,47 @@
   border-width: 3px;
 }
 
+#fm-figures-gallery {
+  overflow: hidden;
+  position: relative;
+}
+
+#fm-figures-gallery .fm-gallery-track {
+  display: flex;
+  gap: 1rem;
+  animation: fm-scroll 20s linear infinite;
+  width: max-content;
+}
+
+#fm-figures-gallery:hover .fm-gallery-track {
+  animation-play-state: paused;
+}
+
+@keyframes fm-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .fm-figure-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.75rem;
   padding: 1rem;
   text-align: center;
-  transition: all 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
+  flex-shrink: 0;
+  width: 140px;
 }
 
 .fm-figure-card:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(250, 204, 21, 0.3);
-  transform: translateY(-2px);
 }
 
 .fm-figure-card img {

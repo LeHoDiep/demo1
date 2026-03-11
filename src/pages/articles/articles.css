@@ -1,0 +1,311 @@
+/* Articles page styles — matching login/register aesthetic */
+
+/* ===== Card appear animation ===== */
+.articles-appear {
+  animation: articlesAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes articlesAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== SVG cross pattern (same as login) ===== */
+.articles-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ===== Floating orbs animation ===== */
+.articles-float {
+  animation: articlesFloat 6s ease-in-out infinite;
+}
+.articles-float-delay {
+  animation: articlesFloat 6s ease-in-out 3s infinite;
+}
+@keyframes articlesFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+/* ===== Prose overrides for markdown content ===== */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: #fff;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.prose h1 {
+  font-size: 2rem;
+  background: linear-gradient(90deg, #facc15, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.prose h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.4em;
+}
+.prose h3 {
+  font-size: 1.25rem;
+}
+.prose p {
+  margin-bottom: 1em;
+  line-height: 1.8;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+.prose li {
+  margin-bottom: 0.25em;
+}
+.prose blockquote {
+  border-left: 4px solid rgba(249, 115, 22, 0.5);
+  padding-left: 1em;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  margin: 1em 0;
+  background: rgba(249, 115, 22, 0.05);
+  padding: 0.75em 1em;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.prose pre {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1em;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin: 1em 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+.prose img {
+  border-radius: 0.75rem;
+  max-width: 100%;
+  margin: 1em 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.prose a {
+  color: #fb923c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose a:hover {
+  color: #fdba74;
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2em 0;
+}
+
+/* ===== Article card ===== */
+.article-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+.article-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(249, 115, 22, 0.3);
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(249, 115, 22, 0.08);
+}
+.article-card img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.article-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Admin card action buttons */
+.admin-card-actions {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.article-card:hover .admin-card-actions {
+  opacity: 1;
+}
+
+/* ===== Detail view ===== */
+#article-detail article {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+}
+#detail-image {
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Editor panel ===== */
+#editor-panel {
+  background: linear-gradient(135deg, #431407 0%, #7c2d12 50%, #431407 100%);
+}
+#editor-panel input,
+#editor-panel textarea {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+#editor-panel input:focus,
+#editor-panel textarea:focus {
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+
+/* Editor tabs */
+.editor-tab {
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0.5rem;
+}
+.editor-tab.active {
+  background: rgba(249, 115, 22, 0.25) !important;
+  color: #fb923c !important;
+  font-weight: 600;
+}
+
+/* ===== New article button ===== */
+#btn-new-article {
+  transition: all 0.3s ease;
+}
+
+/* ===== Back button ===== */
+#btn-back {
+  color: #fb923c;
+  transition: all 0.2s ease;
+}
+#btn-back:hover {
+  color: #fdba74;
+  transform: translateX(-4px);
+}
+
+/* ===== Admin manage row ===== */
+.admin-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  transition: background 0.2s;
+}
+.admin-row:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.admin-row.dragging {
+  opacity: 0.5;
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+/* Drag handle */
+.drag-handle {
+  cursor: grab;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
+  user-select: none;
+  flex-shrink: 0;
+}
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Carousel toggle */
+.carousel-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.carousel-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.carousel-toggle .slider {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.carousel-toggle .slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+.carousel-toggle input:checked + .slider {
+  background: #f97316;
+}
+.carousel-toggle input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== Page heading ===== */
+main h2 {
+  background: linear-gradient(90deg, #ffffff, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Empty state ===== */
+#articles-empty {
+  color: rgba(255, 255, 255, 0.4);
+}

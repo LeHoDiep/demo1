@@ -72,9 +72,11 @@ function inlineHtmlFiles(dir) {
     }
   });
 
-  // Delete inlined assets after ALL HTML files have been processed
+  // Delete inlined assets only if they are inside dist/pages (flattened copies)
   allInlinedFiles.forEach((filepath) => {
-    if (fs.existsSync(filepath)) {
+    const normalized = path.resolve(filepath);
+    const pagesDir = path.resolve(distPagesDir);
+    if (normalized.startsWith(pagesDir) && fs.existsSync(filepath)) {
       fs.unlinkSync(filepath);
       console.log(`  → Deleted ${path.basename(filepath)}`);
     }

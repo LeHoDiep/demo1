@@ -1,3 +1,14 @@
+// Redirect if already logged in
+if (localStorage.getItem("user")) {
+  document.addEventListener("DOMContentLoaded", function () {
+    var modal = document.getElementById("already-logged-modal");
+    if (modal) modal.classList.remove("hidden");
+    setTimeout(function () {
+      window.location.href = "index.html";
+    }, 2000);
+  });
+}
+
 // Password hashing function using SHA-256
 async function hashPassword(password) {
   const encoder = new TextEncoder();
@@ -44,7 +55,11 @@ loginForm.addEventListener("submit", async (e) => {
       modal.classList.remove("hidden");
       localStorage.setItem(
         "user",
-        JSON.stringify({ username: user.username, id: user.id }),
+        JSON.stringify({
+          username: user.username,
+          id: user.id,
+          isAdmin: !!user.isAdmin,
+        }),
       );
       setTimeout(() => {
         modal.classList.add("hidden");
