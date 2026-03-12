@@ -286,29 +286,19 @@ if (user) {
 // ===== Team Members Carousel =====
 const teamMembers = [
   {
-    name: "Hoàng Anh",
+    name: "Trần Thị Xuân Hồng",
     role: "Nhóm trưởng",
-    avatar: "../images/avatar1.jpg",
+    avatar: "../images/avatar1.png",
   },
   {
-    name: "Minh Tuấn",
-    role: "Lập trình viên",
-    avatar: "../images/avatar2.jpg",
+    name: "Người vô hình",
+    role: "???",
+    avatar: "../images/avatarAno.png",
   },
   {
-    name: "Thanh Hà",
-    role: "Thiết kế UI/UX",
-    avatar: "../images/avatar3.jpg",
-  },
-  {
-    name: "Đức Anh",
-    role: "Nội dung & Nghiên cứu",
-    avatar: "../images/avatar4.jpg",
-  },
-  {
-    name: "Phương Linh",
-    role: "Kiểm thử",
-    avatar: "../images/avatar5.jpg",
+    name: "Người vô hình",
+    role: "???",
+    avatar: "../images/avatarAno.png",
   },
 ];
 
