@@ -6,9 +6,15 @@ const ARTICLES_API = "https://69057f58ee3d0d14c132c727.mockapi.io/articles";
 // --- API helpers ---
 function getArticles() {
   return fetch(ARTICLES_API)
-    .then(function (r) { return r.json(); })
-    .then(function (data) { return Array.isArray(data) ? data : []; })
-    .catch(function () { return []; });
+    .then(function (r) {
+      return r.json();
+    })
+    .then(function (data) {
+      return Array.isArray(data) ? data : [];
+    })
+    .catch(function () {
+      return [];
+    });
 }
 
 function createArticle(article) {
@@ -16,7 +22,9 @@ function createArticle(article) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(article),
-  }).then(function (r) { return r.json(); });
+  }).then(function (r) {
+    return r.json();
+  });
 }
 
 function updateArticle(id, updates) {
@@ -24,13 +32,17 @@ function updateArticle(id, updates) {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updates),
-  }).then(function (r) { return r.json(); });
+  }).then(function (r) {
+    return r.json();
+  });
 }
 
 function deleteArticleAPI(id) {
   return fetch(ARTICLES_API + "/" + id, {
     method: "DELETE",
-  }).then(function (r) { return r.json(); });
+  }).then(function (r) {
+    return r.json();
+  });
 }
 
 // --- Seed default articles if API is empty ---
@@ -94,7 +106,11 @@ function seedDefaults() {
         createdAt: new Date().toISOString(),
       },
     ];
-    return Promise.all(defaults.map(function (d) { return createArticle(d); }));
+    return Promise.all(
+      defaults.map(function (d) {
+        return createArticle(d);
+      }),
+    );
   });
 }
 
@@ -144,7 +160,9 @@ function renderMarkdown(md) {
 // --- Render articles list ---
 function renderList() {
   getArticles().then(function (articles) {
-    articles.sort(function (a, b) { return a.order - b.order; });
+    articles.sort(function (a, b) {
+      return a.order - b.order;
+    });
     listView.innerHTML = "";
 
     if (articles.length === 0) {
@@ -157,82 +175,82 @@ function renderList() {
     listView.classList.remove("hidden");
 
     articles.forEach(function (art) {
-    var card = document.createElement("div");
-    card.className = "article-card flex flex-col sm:flex-row relative";
-    card.setAttribute("data-id", art.id);
+      var card = document.createElement("div");
+      card.className = "article-card flex flex-col sm:flex-row relative";
+      card.setAttribute("data-id", art.id);
 
-    // Admin action buttons overlay
-    var adminHtml = "";
-    if (isAdmin) {
-      adminHtml =
-        '<div class="admin-card-actions absolute top-2 right-2 flex gap-1.5 z-10">' +
-        '<button class="card-pin-btn flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors ' +
-        (art.showInCarousel
-          ? "bg-yellow-500 text-gray-900"
-          : "bg-white/10 text-white/60 hover:bg-white/20") +
-        '" data-id="' +
-        art.id +
-        '" title="Hiển thị trên carousel trang chủ">📌</button>' +
-        '<button class="card-edit-btn px-2 py-1 rounded text-xs bg-white/10 text-white/60 hover:bg-blue-500/30 hover:text-blue-300 transition-colors" data-id="' +
-        art.id +
-        '" title="Chỉnh sửa">✏️</button>' +
-        '<button class="card-delete-btn px-2 py-1 rounded text-xs bg-white/10 text-white/60 hover:bg-red-500/30 hover:text-red-300 transition-colors" data-id="' +
-        art.id +
-        '" title="Xóa">🗑️</button>' +
+      // Admin action buttons overlay
+      var adminHtml = "";
+      if (isAdmin) {
+        adminHtml =
+          '<div class="admin-card-actions absolute top-2 right-2 flex gap-1.5 z-10">' +
+          '<button class="card-pin-btn flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors ' +
+          (art.showInCarousel
+            ? "bg-yellow-500 text-gray-900"
+            : "bg-white/10 text-white/60 hover:bg-white/20") +
+          '" data-id="' +
+          art.id +
+          '" title="Hiển thị trên carousel trang chủ">📌</button>' +
+          '<button class="card-edit-btn px-2 py-1 rounded text-xs bg-white/10 text-white/60 hover:bg-blue-500/30 hover:text-blue-300 transition-colors" data-id="' +
+          art.id +
+          '" title="Chỉnh sửa">✏️</button>' +
+          '<button class="card-delete-btn px-2 py-1 rounded text-xs bg-white/10 text-white/60 hover:bg-red-500/30 hover:text-red-300 transition-colors" data-id="' +
+          art.id +
+          '" title="Xóa">🗑️</button>' +
+          "</div>";
+      }
+
+      card.innerHTML =
+        adminHtml +
+        '<div class="sm:w-64 h-48 sm:h-auto flex-shrink-0 bg-orange-900/50">' +
+        '<img src="' +
+        escapeAttr(art.image) +
+        '" alt="' +
+        escapeAttr(art.title) +
+        '" class="w-full h-full object-cover" onerror="this.style.display=\'none\'" />' +
+        "</div>" +
+        '<div class="p-5 flex flex-col justify-center flex-1">' +
+        '<h3 class="text-lg md:text-xl font-bold text-white mb-2">' +
+        escapeHtml(art.title) +
+        "</h3>" +
+        '<p class="text-sm text-white/60 mb-3 line-clamp-2">' +
+        escapeHtml(art.summary || "") +
+        "</p>" +
+        '<span class="text-xs text-white/30">' +
+        formatDate(art.createdAt) +
+        "</span>" +
         "</div>";
-    }
 
-    card.innerHTML =
-      adminHtml +
-      '<div class="sm:w-64 h-48 sm:h-auto flex-shrink-0 bg-orange-900/50">' +
-      '<img src="' +
-      escapeAttr(art.image) +
-      '" alt="' +
-      escapeAttr(art.title) +
-      '" class="w-full h-full object-cover" onerror="this.style.display=\'none\'" />' +
-      "</div>" +
-      '<div class="p-5 flex flex-col justify-center flex-1">' +
-      '<h3 class="text-lg md:text-xl font-bold text-white mb-2">' +
-      escapeHtml(art.title) +
-      "</h3>" +
-      '<p class="text-sm text-white/60 mb-3 line-clamp-2">' +
-      escapeHtml(art.summary || "") +
-      "</p>" +
-      '<span class="text-xs text-white/30">' +
-      formatDate(art.createdAt) +
-      "</span>" +
-      "</div>";
+      // Admin: wire up edit/delete/pin buttons (stopPropagation to avoid opening detail)
+      if (isAdmin) {
+        card
+          .querySelector(".card-edit-btn")
+          .addEventListener("click", function (e) {
+            e.stopPropagation();
+            openEditor(art.id);
+          });
+        card
+          .querySelector(".card-delete-btn")
+          .addEventListener("click", function (e) {
+            e.stopPropagation();
+            if (confirm("Xoá bài viết: " + art.title + "?")) {
+              deleteArticle(art.id);
+            }
+          });
+        card
+          .querySelector(".card-pin-btn")
+          .addEventListener("click", function (e) {
+            e.stopPropagation();
+            toggleCarousel(art.id, !art.showInCarousel);
+            renderList();
+          });
+      }
 
-    // Admin: wire up edit/delete/pin buttons (stopPropagation to avoid opening detail)
-    if (isAdmin) {
-      card
-        .querySelector(".card-edit-btn")
-        .addEventListener("click", function (e) {
-          e.stopPropagation();
-          openEditor(art.id);
-        });
-      card
-        .querySelector(".card-delete-btn")
-        .addEventListener("click", function (e) {
-          e.stopPropagation();
-          if (confirm("Xoá bài viết: " + art.title + "?")) {
-            deleteArticle(art.id);
-          }
-        });
-      card
-        .querySelector(".card-pin-btn")
-        .addEventListener("click", function (e) {
-          e.stopPropagation();
-          toggleCarousel(art.id, !art.showInCarousel);
-          renderList();
-        });
-    }
-
-    card.addEventListener("click", function () {
-      showDetail(art.id);
+      card.addEventListener("click", function () {
+        showDetail(art.id);
+      });
+      listView.appendChild(card);
     });
-    listView.appendChild(card);
-  });
   }); // end getArticles().then
 }
 
@@ -366,7 +384,9 @@ function renderAdminList() {
   var container = document.getElementById("admin-article-list");
   if (!container) return;
   getArticles().then(function (articles) {
-    articles.sort(function (a, b) { return a.order - b.order; });
+    articles.sort(function (a, b) {
+      return a.order - b.order;
+    });
     container.innerHTML = "";
 
     articles.forEach(function (art) {
@@ -400,9 +420,11 @@ function renderAdminList() {
         });
 
       // Edit button
-      row.querySelector(".admin-edit-btn").addEventListener("click", function () {
-        openEditor(art.id);
-      });
+      row
+        .querySelector(".admin-edit-btn")
+        .addEventListener("click", function () {
+          openEditor(art.id);
+        });
 
       // Delete button
       row
@@ -449,7 +471,9 @@ function deleteArticle(id) {
 
 function reorderArticles(draggedId, targetId) {
   getArticles().then(function (articles) {
-    articles.sort(function (a, b) { return a.order - b.order; });
+    articles.sort(function (a, b) {
+      return a.order - b.order;
+    });
     var draggedIdx = articles.findIndex(function (a) {
       return a.id === draggedId;
     });

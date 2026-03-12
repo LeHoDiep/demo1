@@ -1172,6 +1172,71 @@
       </div>
     </div>
 
+    <!-- Comments Section -->
+    <section
+      id="comments-section"
+      class="bg-gray-800 py-12 border-t border-gray-700"
+    >
+      <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 text-center">
+          💬 Thảo Luận
+        </h2>
+        <p class="text-gray-400 text-center mb-8">
+          Chia sẻ suy nghĩ và trao đổi với mọi người về lịch sử Đảng
+        </p>
+
+        <!-- Comment form -->
+        <div id="comment-form-wrapper" class="mb-8">
+          <div
+            id="comment-login-prompt"
+            class="hidden bg-gray-700/50 rounded-lg p-6 text-center"
+          >
+            <p class="text-gray-300 mb-3">Đăng nhập để tham gia bình luận</p>
+            <a
+              href="login.html"
+              class="inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold px-6 py-2 rounded-lg transition-colors"
+              >Đăng nhập</a
+            >
+          </div>
+          <div id="comment-form" class="hidden">
+            <div class="flex gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-gray-900 font-bold flex-shrink-0"
+                id="comment-avatar"
+              >
+                ?
+              </div>
+              <div class="flex-1">
+                <textarea
+                  id="comment-input"
+                  rows="3"
+                  placeholder="Viết bình luận của bạn..."
+                  class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-500 resize-none"
+                ></textarea>
+                <div class="flex justify-end mt-2">
+                  <button
+                    id="comment-submit"
+                    class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold px-5 py-2 rounded-lg transition-colors text-sm"
+                  >
+                    Gửi bình luận
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments list -->
+        <div id="comments-loading" class="text-center text-gray-400 py-6">
+          Đang tải bình luận...
+        </div>
+        <div id="comments-list" class="space-y-4 hidden"></div>
+        <div id="comments-empty" class="hidden text-center text-gray-500 py-6">
+          Chưa có bình luận nào. Hãy là người đầu tiên!
+        </div>
+      </div>
+    </section>
+
     <script src="./history.js"></script>
   </body>
 </html>
