@@ -948,6 +948,10 @@ video {
   display: grid;
 }
 
+.contents {
+  display: contents;
+}
+
 .hidden {
   display: none;
 }
@@ -3855,94 +3859,103 @@ main h2 {
     <script>
 // ===== Articles Page =====
 
-// --- Storage helpers ---
-const ARTICLES_KEY = "articles_data";
+// --- API config ---
+const ARTICLES_API = "https://69057f58ee3d0d14c132c727.mockapi.io/articles";
 
+// --- API helpers ---
 function getArticles() {
-  try {
-    return JSON.parse(localStorage.getItem(ARTICLES_KEY)) || [];
-  } catch {
-    return [];
-  }
+  return fetch(ARTICLES_API)
+    .then(function (r) { return r.json(); })
+    .then(function (data) { return Array.isArray(data) ? data : []; })
+    .catch(function () { return []; });
 }
 
-function saveArticles(list) {
-  localStorage.setItem(ARTICLES_KEY, JSON.stringify(list));
+function createArticle(article) {
+  return fetch(ARTICLES_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(article),
+  }).then(function (r) { return r.json(); });
 }
 
-function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+function updateArticle(id, updates) {
+  return fetch(ARTICLES_API + "/" + id, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updates),
+  }).then(function (r) { return r.json(); });
 }
 
-// --- Seed default articles if empty ---
+function deleteArticleAPI(id) {
+  return fetch(ARTICLES_API + "/" + id, {
+    method: "DELETE",
+  }).then(function (r) { return r.json(); });
+}
+
+// --- Seed default articles if API is empty ---
 function seedDefaults() {
-  if (getArticles().length > 0) return;
-  const defaults = [
-    {
-      id: generateId(),
-      title: "Trung bình lớp học ai tờ",
-      summary:
-        "hình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.",
-      content:
-        "# Trung bình lớp học ai tờ\n\nhình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.\n\n## Nội dung chi tiết\n\nĐây là nội dung mẫu cho bài viết đầu tiên. Bạn có thể chỉnh sửa nội dung này bằng Markdown.",
-      image: "../images/rp1.jpg",
-      order: 0,
-      showInCarousel: true,
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: generateId(),
-      title: "Tiêu đề bài báo 2",
-      summary:
-        "Đây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng.",
-      content:
-        "# Tiêu đề bài báo 2\n\nĐây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng.\n\n## Chi tiết\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "../images/rp2.jpg",
-      order: 1,
-      showInCarousel: true,
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: generateId(),
-      title: "Tiêu đề bài báo 3",
-      summary:
-        "Bài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển.",
-      content:
-        "# Tiêu đề bài báo 3\n\nBài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-      image: "../images/rp3.jpg",
-      order: 2,
-      showInCarousel: true,
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: generateId(),
-      title: "Tiêu đề bài báo 4",
-      summary:
-        "Bài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử.",
-      content:
-        "# Tiêu đề bài báo 4\n\nBài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
-      image: "../images/rp4.jpg",
-      order: 3,
-      showInCarousel: true,
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: generateId(),
-      title: "Tiêu đề bài báo 5",
-      summary:
-        "Bài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử.",
-      content:
-        "# Tiêu đề bài báo 5\n\nBài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
-      image: "../images/rp5.jpg",
-      order: 4,
-      showInCarousel: true,
-      createdAt: new Date().toISOString(),
-    },
-  ];
-  saveArticles(defaults);
+  return getArticles().then(function (articles) {
+    if (articles.length > 0) return Promise.resolve();
+    var defaults = [
+      {
+        title: "Trung bình lớp học ai tờ",
+        summary:
+          "hình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.",
+        content:
+          "# Trung bình lớp học ai tờ\n\nhình ảnh người đàn ông dạy học lớp ai tờ cho đám trò trẻ, trong thời kỳ cách mạng công nghiệp 4.0, với phong cách hoạt hình vui nhộn và màu sắc tươi sáng.\n\n## Nội dung chi tiết\n\nĐây là nội dung mẫu cho bài viết đầu tiên. Bạn có thể chỉnh sửa nội dung này bằng Markdown.",
+        image: "../images/rp1.jpg",
+        order: 0,
+        showInCarousel: true,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        title: "Tiêu đề bài báo 2",
+        summary:
+          "Đây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng.",
+        content:
+          "# Tiêu đề bài báo 2\n\nĐây là nội dung tóm tắt của bài báo thứ hai. Mô tả chi tiết về các sự kiện lịch sử quan trọng.\n\n## Chi tiết\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        image: "../images/rp2.jpg",
+        order: 1,
+        showInCarousel: true,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        title: "Tiêu đề bài báo 3",
+        summary:
+          "Bài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển.",
+        content:
+          "# Tiêu đề bài báo 3\n\nBài báo thứ ba cung cấp thông tin chi tiết về các giai đoạn phát triển.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+        image: "../images/rp3.jpg",
+        order: 2,
+        showInCarousel: true,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        title: "Tiêu đề bài báo 4",
+        summary:
+          "Bài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử.",
+        content:
+          "# Tiêu đề bài báo 4\n\nBài báo thứ tư tập trung vào những khía cạnh quan trọng của lịch sử.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.",
+        image: "../images/rp4.jpg",
+        order: 3,
+        showInCarousel: true,
+        createdAt: new Date().toISOString(),
+      },
+      {
+        title: "Tiêu đề bài báo 5",
+        summary:
+          "Bài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử.",
+        content:
+          "# Tiêu đề bài báo 5\n\nBài báo cuối cùng kết luận về những điểm chính và tầm quan trọng của việc học lịch sử.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+        image: "../images/rp5.jpg",
+        order: 4,
+        showInCarousel: true,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    return Promise.all(defaults.map(function (d) { return createArticle(d); }));
+  });
 }
-
-seedDefaults();
 
 // --- Auth / Admin ---
 const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -3989,19 +4002,20 @@ function renderMarkdown(md) {
 
 // --- Render articles list ---
 function renderList() {
-  const articles = getArticles().sort((a, b) => a.order - b.order);
-  listView.innerHTML = "";
+  getArticles().then(function (articles) {
+    articles.sort(function (a, b) { return a.order - b.order; });
+    listView.innerHTML = "";
 
-  if (articles.length === 0) {
-    emptyMsg.classList.remove("hidden");
-    listView.classList.add("hidden");
-    return;
-  }
+    if (articles.length === 0) {
+      emptyMsg.classList.remove("hidden");
+      listView.classList.add("hidden");
+      return;
+    }
 
-  emptyMsg.classList.add("hidden");
-  listView.classList.remove("hidden");
+    emptyMsg.classList.add("hidden");
+    listView.classList.remove("hidden");
 
-  articles.forEach(function (art) {
+    articles.forEach(function (art) {
     var card = document.createElement("div");
     card.className = "article-card flex flex-col sm:flex-row relative";
     card.setAttribute("data-id", art.id);
@@ -4078,40 +4092,43 @@ function renderList() {
     });
     listView.appendChild(card);
   });
+  }); // end getArticles().then
 }
 
 // --- Show single article ---
 function showDetail(id) {
-  var art = getArticles().find(function (a) {
-    return a.id === id;
+  getArticles().then(function (articles) {
+    var art = articles.find(function (a) {
+      return a.id === id;
+    });
+    if (!art) return;
+
+    listView.parentElement
+      .querySelector(".flex.items-center.justify-between")
+      .classList.add("hidden");
+    listView.classList.add("hidden");
+    emptyMsg.classList.add("hidden");
+    if (adminManage) adminManage.classList.add("hidden");
+
+    detailView.classList.remove("hidden");
+
+    var img = document.getElementById("detail-image");
+    img.src = art.image;
+    img.alt = art.title;
+    img.onerror = function () {
+      this.style.display = "none";
+    };
+    document.getElementById("detail-title").textContent = art.title;
+    document.getElementById("detail-date").textContent = formatDate(
+      art.createdAt,
+    );
+    document.getElementById("detail-content").innerHTML = renderMarkdown(
+      art.content,
+    );
+
+    // Update URL hash
+    history.pushState(null, "", "articles.html?id=" + art.id);
   });
-  if (!art) return;
-
-  listView.parentElement
-    .querySelector(".flex.items-center.justify-between")
-    .classList.add("hidden");
-  listView.classList.add("hidden");
-  emptyMsg.classList.add("hidden");
-  if (adminManage) adminManage.classList.add("hidden");
-
-  detailView.classList.remove("hidden");
-
-  var img = document.getElementById("detail-image");
-  img.src = art.image;
-  img.alt = art.title;
-  img.onerror = function () {
-    this.style.display = "none";
-  };
-  document.getElementById("detail-title").textContent = art.title;
-  document.getElementById("detail-date").textContent = formatDate(
-    art.createdAt,
-  );
-  document.getElementById("detail-content").innerHTML = renderMarkdown(
-    art.content,
-  );
-
-  // Update URL hash
-  history.pushState(null, "", "articles.html?id=" + art.id);
 }
 
 function showList() {
@@ -4131,15 +4148,17 @@ function openEditor(id) {
 
   if (editingId) {
     heading.textContent = "Chỉnh sửa bài viết";
-    var art = getArticles().find(function (a) {
-      return a.id === editingId;
+    getArticles().then(function (articles) {
+      var art = articles.find(function (a) {
+        return a.id === editingId;
+      });
+      if (art) {
+        document.getElementById("editor-title").value = art.title;
+        document.getElementById("editor-summary").value = art.summary || "";
+        document.getElementById("editor-image").value = art.image || "";
+        document.getElementById("editor-content").value = art.content || "";
+      }
     });
-    if (art) {
-      document.getElementById("editor-title").value = art.title;
-      document.getElementById("editor-summary").value = art.summary || "";
-      document.getElementById("editor-image").value = art.image || "";
-      document.getElementById("editor-content").value = art.content || "";
-    }
   } else {
     heading.textContent = "Tạo bài viết mới";
     document.getElementById("editor-title").value = "";
@@ -4173,160 +4192,141 @@ function saveArticle() {
     return;
   }
 
-  var articles = getArticles();
-
+  var promise;
   if (editingId) {
-    articles = articles.map(function (a) {
-      if (a.id === editingId) {
-        return Object.assign({}, a, {
-          title: title,
-          summary: summary,
-          image: image,
-          content: content,
-        });
-      }
-      return a;
-    });
-  } else {
-    articles.push({
-      id: generateId(),
+    promise = updateArticle(editingId, {
       title: title,
       summary: summary,
       image: image,
       content: content,
-      order: articles.length,
-      showInCarousel: false,
-      createdAt: new Date().toISOString(),
+    });
+  } else {
+    promise = getArticles().then(function (articles) {
+      return createArticle({
+        title: title,
+        summary: summary,
+        image: image,
+        content: content,
+        order: articles.length,
+        showInCarousel: false,
+        createdAt: new Date().toISOString(),
+      });
     });
   }
 
-  saveArticles(articles);
-  closeEditor();
-  renderList();
+  promise.then(function () {
+    closeEditor();
+    renderList();
+  });
 }
 
 // --- Admin: Manage list with drag & carousel toggle ---
 function renderAdminList() {
   var container = document.getElementById("admin-article-list");
   if (!container) return;
-  var articles = getArticles().sort(function (a, b) {
-    return a.order - b.order;
-  });
-  container.innerHTML = "";
+  getArticles().then(function (articles) {
+    articles.sort(function (a, b) { return a.order - b.order; });
+    container.innerHTML = "";
 
-  articles.forEach(function (art) {
-    var row = document.createElement("div");
-    row.className = "admin-row";
-    row.setAttribute("draggable", "true");
-    row.setAttribute("data-id", art.id);
-    row.innerHTML =
-      '<span class="drag-handle" title="Kéo để sắp xếp">⠿</span>' +
-      '<span class="flex-1 text-white text-sm truncate">' +
-      escapeHtml(art.title) +
-      "</span>" +
-      '<label class="carousel-toggle" title="Hiển thị trên carousel trang chủ">' +
-      '<input type="checkbox" ' +
-      (art.showInCarousel ? "checked" : "") +
-      " />" +
-      '<span class="slider"></span>' +
-      "</label>" +
-      '<button class="admin-edit-btn text-yellow-400 hover:text-yellow-300 text-sm flex-shrink-0" data-id="' +
-      art.id +
-      '">✏️</button>' +
-      '<button class="admin-delete-btn text-red-400 hover:text-red-300 text-sm flex-shrink-0" data-id="' +
-      art.id +
-      '">🗑️</button>';
+    articles.forEach(function (art) {
+      var row = document.createElement("div");
+      row.className = "admin-row";
+      row.setAttribute("draggable", "true");
+      row.setAttribute("data-id", art.id);
+      row.innerHTML =
+        '<span class="drag-handle" title="Kéo để sắp xếp">⠿</span>' +
+        '<span class="flex-1 text-white text-sm truncate">' +
+        escapeHtml(art.title) +
+        "</span>" +
+        '<label class="carousel-toggle" title="Hiển thị trên carousel trang chủ">' +
+        '<input type="checkbox" ' +
+        (art.showInCarousel ? "checked" : "") +
+        " />" +
+        '<span class="slider"></span>' +
+        "</label>" +
+        '<button class="admin-edit-btn text-yellow-400 hover:text-yellow-300 text-sm flex-shrink-0" data-id="' +
+        art.id +
+        '">✏️</button>' +
+        '<button class="admin-delete-btn text-red-400 hover:text-red-300 text-sm flex-shrink-0" data-id="' +
+        art.id +
+        '">🗑️</button>';
 
-    // Carousel toggle
-    row
-      .querySelector("input[type=checkbox]")
-      .addEventListener("change", function (e) {
-        toggleCarousel(art.id, e.target.checked);
+      // Carousel toggle
+      row
+        .querySelector("input[type=checkbox]")
+        .addEventListener("change", function (e) {
+          toggleCarousel(art.id, e.target.checked);
+        });
+
+      // Edit button
+      row.querySelector(".admin-edit-btn").addEventListener("click", function () {
+        openEditor(art.id);
       });
 
-    // Edit button
-    row.querySelector(".admin-edit-btn").addEventListener("click", function () {
-      openEditor(art.id);
-    });
+      // Delete button
+      row
+        .querySelector(".admin-delete-btn")
+        .addEventListener("click", function () {
+          if (confirm("Xoá bài viết: " + art.title + "?")) {
+            deleteArticle(art.id);
+          }
+        });
 
-    // Delete button
-    row
-      .querySelector(".admin-delete-btn")
-      .addEventListener("click", function () {
-        if (confirm("Xoá bài viết: " + art.title + "?")) {
-          deleteArticle(art.id);
+      // Drag events
+      row.addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("text/plain", art.id);
+        row.classList.add("dragging");
+      });
+      row.addEventListener("dragend", function () {
+        row.classList.remove("dragging");
+      });
+      row.addEventListener("dragover", function (e) {
+        e.preventDefault();
+      });
+      row.addEventListener("drop", function (e) {
+        e.preventDefault();
+        var draggedId = e.dataTransfer.getData("text/plain");
+        if (draggedId !== art.id) {
+          reorderArticles(draggedId, art.id);
         }
       });
 
-    // Drag events
-    row.addEventListener("dragstart", function (e) {
-      e.dataTransfer.setData("text/plain", art.id);
-      row.classList.add("dragging");
+      container.appendChild(row);
     });
-    row.addEventListener("dragend", function () {
-      row.classList.remove("dragging");
-    });
-    row.addEventListener("dragover", function (e) {
-      e.preventDefault();
-    });
-    row.addEventListener("drop", function (e) {
-      e.preventDefault();
-      var draggedId = e.dataTransfer.getData("text/plain");
-      if (draggedId !== art.id) {
-        reorderArticles(draggedId, art.id);
-      }
-    });
-
-    container.appendChild(row);
   });
 }
 
 function toggleCarousel(id, value) {
-  var articles = getArticles().map(function (a) {
-    if (a.id === id) {
-      return Object.assign({}, a, { showInCarousel: value });
-    }
-    return a;
-  });
-  saveArticles(articles);
+  updateArticle(id, { showInCarousel: value });
 }
 
 function deleteArticle(id) {
-  var articles = getArticles().filter(function (a) {
-    return a.id !== id;
+  deleteArticleAPI(id).then(function () {
+    renderList();
   });
-  // Re-order
-  articles
-    .sort(function (a, b) {
-      return a.order - b.order;
-    })
-    .forEach(function (a, i) {
-      a.order = i;
-    });
-  saveArticles(articles);
-  renderList();
 }
 
 function reorderArticles(draggedId, targetId) {
-  var articles = getArticles().sort(function (a, b) {
-    return a.order - b.order;
-  });
-  var draggedIdx = articles.findIndex(function (a) {
-    return a.id === draggedId;
-  });
-  var targetIdx = articles.findIndex(function (a) {
-    return a.id === targetId;
-  });
-  if (draggedIdx < 0 || targetIdx < 0) return;
+  getArticles().then(function (articles) {
+    articles.sort(function (a, b) { return a.order - b.order; });
+    var draggedIdx = articles.findIndex(function (a) {
+      return a.id === draggedId;
+    });
+    var targetIdx = articles.findIndex(function (a) {
+      return a.id === targetId;
+    });
+    if (draggedIdx < 0 || targetIdx < 0) return;
 
-  var item = articles.splice(draggedIdx, 1)[0];
-  articles.splice(targetIdx, 0, item);
-  articles.forEach(function (a, i) {
-    a.order = i;
+    var item = articles.splice(draggedIdx, 1)[0];
+    articles.splice(targetIdx, 0, item);
+    var updates = articles.map(function (a, i) {
+      return updateArticle(a.id, { order: i });
+    });
+    Promise.all(updates).then(function () {
+      renderAdminList();
+      renderList();
+    });
   });
-  saveArticles(articles);
-  renderAdminList();
-  renderList();
 }
 
 // --- Editor tabs ---
@@ -4461,8 +4461,8 @@ if (currentUser) {
 })();
 
 // --- Init ---
-// Check if URL has ?id= to show a specific article
-(function () {
+// Seed defaults then render
+seedDefaults().then(function () {
   var params = new URLSearchParams(window.location.search);
   var articleId = params.get("id");
   if (articleId) {
@@ -4470,7 +4470,7 @@ if (currentUser) {
   } else {
     renderList();
   }
-})();
+});
 
 </script>
   </body>
