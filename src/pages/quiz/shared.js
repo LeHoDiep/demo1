@@ -20,6 +20,8 @@ function formatTime(seconds) {
 
 // Generic leaderboard renderer
 // Options: { bodyId, loadingId, listId, emptyId (optional) }
+var LEADERBOARD_TOP = 10;
+
 function renderLeaderboard({ bodyId, loadingId, listId, emptyId }) {
   const loadingEl = document.getElementById(loadingId);
   const listEl = document.getElementById(listId);
@@ -38,31 +40,39 @@ function renderLeaderboard({ bodyId, loadingId, listId, emptyId }) {
 
       const sorted = sortLeaderboard(data);
       bodyEl.innerHTML = "";
-      sorted.forEach((entry, index) => {
-        const tr = document.createElement("tr");
-        const isCurrentUser =
-          currentUser && entry.username === currentUser.username;
-        tr.className = isCurrentUser
-          ? "bg-yellow-100 font-bold border-b"
-          : index % 2 === 0
-            ? "bg-white border-b"
-            : "bg-gray-50 border-b";
 
-        const rank = index + 1;
-        const medal =
-          rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : rank;
-        const correctVal = entry.correctAnswers ?? entry.score ?? "-";
-        const timeVal = formatTime(entry.timeTaken);
+      // Find current user's position (if not in top 10)
+      var userRankIndex = -1;
+      if (currentUser) {
+        userRankIndex = sorted.findIndex(
+          (e) => e.username === currentUser.username,
+        );
+      }
+      var userInTop = userRankIndex >= 0 && userRankIndex < LEADERBOARD_TOP;
 
-        tr.innerHTML = `
-          <td class="p-2 border font-semibold">${medal}</td>
-          <td class="p-2 border">${entry.username}${isCurrentUser ? " (Bạn)" : ""}</td>
-          <td class="p-2 border text-center font-semibold">${correctVal}/25</td>
-          <td class="p-2 border text-center">${timeVal}</td>
-          <td class="p-2 border text-gray-500">${entry.date || ""}</td>
-        `;
-        bodyEl.appendChild(tr);
+      // Render top 10 rows
+      var top = sorted.slice(0, LEADERBOARD_TOP);
+      top.forEach((entry, index) => {
+        bodyEl.appendChild(createLeaderboardRow(entry, index, currentUser));
       });
+
+      // If user exists but is NOT in top 10, show separator + their row
+      if (currentUser && userRankIndex >= LEADERBOARD_TOP) {
+        // Separator row
+        var sep = document.createElement("tr");
+        sep.innerHTML =
+          '<td colspan="5" class="text-center text-gray-400 py-2 border">• • •</td>';
+        bodyEl.appendChild(sep);
+
+        // User's row
+        bodyEl.appendChild(
+          createLeaderboardRow(
+            sorted[userRankIndex],
+            userRankIndex,
+            currentUser,
+          ),
+        );
+      }
 
       if (loadingEl) loadingEl.classList.add("hidden");
       if (listEl) listEl.classList.remove("hidden");
@@ -71,4 +81,29 @@ function renderLeaderboard({ bodyId, loadingId, listId, emptyId }) {
       console.error("Lỗi khi tải bảng xếp hạng:", err);
       if (loadingEl) loadingEl.textContent = "Không thể tải bảng xếp hạng.";
     });
+}
+
+function createLeaderboardRow(entry, index, currentUser) {
+  const tr = document.createElement("tr");
+  const isCurrentUser = currentUser && entry.username === currentUser.username;
+  tr.className = isCurrentUser
+    ? "bg-yellow-100 font-bold border-b"
+    : index % 2 === 0
+      ? "bg-white border-b"
+      : "bg-gray-50 border-b";
+
+  const rank = index + 1;
+  const medal =
+    rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : rank;
+  const correctVal = entry.correctAnswers ?? entry.score ?? "-";
+  const timeVal = formatTime(entry.timeTaken);
+
+  tr.innerHTML = `
+    <td class="p-2 border font-semibold">${medal}</td>
+    <td class="p-2 border">${entry.username}${isCurrentUser ? " (Bạn)" : ""}</td>
+    <td class="p-2 border text-center font-semibold">${correctVal}/25</td>
+    <td class="p-2 border text-center">${timeVal}</td>
+    <td class="p-2 border text-gray-500">${entry.date || ""}</td>
+  `;
+  return tr;
 }
