@@ -221,9 +221,9 @@ html {
 }
 
 .like-btn.liked .like-icon::after {
-  content: "❤️";
+  content: "♥";
 }
 
 .like-btn:not(.liked) .like-icon::after {
-  content: "🩶";
+  content: "♡";
 }

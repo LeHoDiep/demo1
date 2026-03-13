@@ -215,6 +215,25 @@ document.querySelectorAll('.timeline-link[href^="#"]').forEach(function (link) {
     );
   }
 
+  function getCascadeDeleteIds(rootId, comments) {
+    var childrenByParent = {};
+    comments.forEach(function (c) {
+      var p = String(c.parentId || "");
+      if (!childrenByParent[p]) childrenByParent[p] = [];
+      childrenByParent[p].push(String(c.id));
+    });
+
+    var ids = [];
+    function visit(id) {
+      var children = childrenByParent[String(id)] || [];
+      children.forEach(visit);
+      ids.push(String(id));
+    }
+
+    visit(String(rootId));
+    return ids;
+  }
+
   function buildTree(comments) {
     var map = {};
     var roots = [];
@@ -238,15 +257,6 @@ document.querySelectorAll('.timeline-link[href^="#"]').forEach(function (link) {
     }
     sortByDate(roots);
     return { roots: roots, map: map };
-  }
-
-  function getDescendantIds(node) {
-    var ids = [];
-    node.children.forEach(function (child) {
-      ids.push(child.id);
-      ids = ids.concat(getDescendantIds(child));
-    });
-    return ids;
   }
 
   function renderComments() {
@@ -361,7 +371,7 @@ document.querySelectorAll('.timeline-link[href^="#"]').forEach(function (link) {
     var deleteBtn = item.querySelector(".delete-btn");
     if (deleteBtn)
       deleteBtn.addEventListener("click", function () {
-        handleDelete(node, map);
+        handleDelete(node);
       });
 
     return wrapper;
@@ -425,7 +435,7 @@ document.querySelectorAll('.timeline-link[href^="#"]').forEach(function (link) {
     slot.querySelector(".reply-input").focus();
   }
 
-  function handleDelete(node, map) {
+  function handleDelete(node) {
     if (
       !confirm(
         "X\u00F3a b\u00ECnh lu\u1EADn n\u00E0y" +
@@ -435,13 +445,23 @@ document.querySelectorAll('.timeline-link[href^="#"]').forEach(function (link) {
       )
     )
       return;
-    var idsToDelete = [node.id].concat(getDescendantIds(node));
-    var deletes = idsToDelete.map(function (id) {
-      return deleteCommentAPI(id);
-    });
-    Promise.all(deletes).then(function () {
-      renderComments();
-    });
+
+    fetchComments()
+      .then(function (allComments) {
+        var idsToDelete = getCascadeDeleteIds(node.id, allComments);
+        return idsToDelete.reduce(function (chain, id) {
+          return chain.then(function () {
+            return deleteCommentAPI(id);
+          });
+        }, Promise.resolve());
+      })
+      .then(function () {
+        renderComments();
+      })
+      .catch(function (err) {
+        console.error("Delete comment failed:", err);
+        alert("Khong the xoa binh luan luc nay. Vui long thu lai.");
+      });
   }
 
   function submitComment(text, parentId) {
