@@ -53,7 +53,7 @@ function renderCarousel() {
         <div class="flex flex-col justify-center p-1 sm:p-2 md:p-0">
           <h3 class="text-base sm:text-lg md:text-2xl font-bold text-gray-800 mb-1 sm:mb-2 md:mb-4">${article.title}</h3>
           <p class="text-xs sm:text-sm md:text-base text-gray-600 mb-2 sm:mb-3 md:mb-6 leading-relaxed line-clamp-3 md:line-clamp-none">${article.content}</p>
-          <a href="articles.html${article.id ? "?id=" + article.id : ""}" class="inline-block bg-blue-600 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-lg hover:bg-blue-700 transition-colors w-max text-xs sm:text-sm md:text-base">Đọc thêm</a>
+          <a href="./articles.html${article.id ? "?id=" + article.id : ""}" class="inline-block bg-blue-600 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-lg hover:bg-blue-700 transition-colors w-max text-xs sm:text-sm md:text-base">Đọc thêm</a>
         </div>
       </div>
     `;
@@ -263,8 +263,8 @@ if (user) {
   userDiv.innerHTML = `
     <button id="user-menu-button" class="text-white hover:text-orange-400">Welcome, ${user.username} ▼</button>
     <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-      <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
-      <a href="#" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+      <a href="./profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
+      <a href="./#" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
     </div>
   `;
   navRight.appendChild(userDiv);
@@ -440,7 +440,7 @@ renderTeamCarousel();
 })();
 
 // Smooth scroll for About me link
-document.querySelectorAll('a[href="#about-me"]').forEach(function (link) {
+document.querySelectorAll('a[href="./#about-me"]').forEach(function (link) {
   link.addEventListener("click", function (e) {
     e.preventDefault();
     const target = document.getElementById("about-me");

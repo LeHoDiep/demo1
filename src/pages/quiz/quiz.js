@@ -428,8 +428,8 @@ if (user) {
   userDiv.innerHTML = `
     <button id="user-menu-button" class="text-white hover:text-orange-400">Welcome, ${user.username} ▼</button>
     <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-      <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
-      <a href="#" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+      <a href="./profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
+      <a href="./#" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
     </div>
   `;
   navRight.appendChild(userDiv);
