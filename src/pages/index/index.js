@@ -238,6 +238,75 @@ setInterval(() => renderLeaderboard(leaderboardConfig), 30000);
 
 // User menu logic
 const user = JSON.parse(localStorage.getItem("user"));
+const adminClearScoresBtn = document.getElementById("admin-clear-scores-btn");
+const RECORD_GAME_API =
+  "https://69abf1aa9ca639a5217dcdec.mockapi.io/recordGame";
+
+if (user && user.isAdmin && adminClearScoresBtn) {
+  adminClearScoresBtn.classList.remove("hidden");
+  adminClearScoresBtn.addEventListener("click", async function () {
+    const isConfirmed = window.confirm(
+      "Bạn có chắc muốn xóa toàn bộ dữ liệu bảng kết quả quiz?",
+    );
+    if (!isConfirmed) return;
+
+    const originalText = adminClearScoresBtn.textContent;
+    adminClearScoresBtn.disabled = true;
+    adminClearScoresBtn.textContent = "Đang xóa...";
+
+    try {
+      // Repeatedly GET records -> build id array -> DELETE each id until empty.
+      const maxRounds = 20;
+      for (let round = 0; round < maxRounds; round++) {
+        const records = await fetch(`${RECORD_GAME_API}?limit=1000`).then((r) =>
+          r.json(),
+        );
+
+        if (!Array.isArray(records) || records.length === 0) {
+          break;
+        }
+
+        const ids = records
+          .map((record) => record && record.id)
+          .filter((id) => id !== undefined && id !== null && id !== "");
+
+        if (ids.length === 0) {
+          break;
+        }
+
+        for (const id of ids) {
+          await fetch(`${RECORD_GAME_API}/${id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+
+      alert("Đã xóa toàn bộ dữ liệu bảng kết quả quiz.");
+
+      // Refresh leaderboard UI immediately after delete.
+      const bodyEl = document.getElementById(leaderboardConfig.bodyId);
+      const loadingEl = document.getElementById(leaderboardConfig.loadingId);
+      const listEl = document.getElementById(leaderboardConfig.listId);
+      const emptyEl = document.getElementById(leaderboardConfig.emptyId);
+
+      if (bodyEl) bodyEl.innerHTML = "";
+      if (loadingEl) loadingEl.classList.remove("hidden");
+      if (listEl) listEl.classList.add("hidden");
+      if (emptyEl) emptyEl.classList.add("hidden");
+
+      renderLeaderboard(leaderboardConfig);
+      setTimeout(() => renderLeaderboard(leaderboardConfig), 800);
+    } catch (error) {
+      console.error("Lỗi khi xóa dữ liệu bảng kết quả quiz:", error);
+      alert("Không thể xóa dữ liệu. Vui lòng thử lại.");
+    } finally {
+      adminClearScoresBtn.disabled = false;
+      adminClearScoresBtn.textContent = originalText;
+    }
+  });
+}
+
 if (user) {
   document.getElementById("login-link").style.display = "none";
   document.getElementById("register-link").style.display = "none";
@@ -264,7 +333,7 @@ if (user) {
     <button id="user-menu-button" class="text-white hover:text-orange-400">Welcome, ${user.username} ▼</button>
     <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
       <a href="./profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Xem thông tin</a>
-      <a href="./#" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+      <a href="./index.html" id="logout-btn" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
     </div>
   `;
   navRight.appendChild(userDiv);
