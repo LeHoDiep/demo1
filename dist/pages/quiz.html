@@ -1195,6 +1195,7 @@ let timeLeft = 300; // 5 minutes in seconds
 let timerInterval = null;
 let gameStarted = false;
 let currentQuestions = [];
+let totalQuestionsInRound = TOTAL_QUESTIONS;
 
 // Shuffle array
 function shuffleArray(array) {
@@ -1206,11 +1207,46 @@ function shuffleArray(array) {
   return shuffled;
 }
 
+function deduplicateQuestions(questions) {
+  const seen = new Set();
+  const unique = [];
+
+  questions.forEach((q) => {
+    const key = String(q.question || "")
+      .trim()
+      .toLowerCase();
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    unique.push(q);
+  });
+
+  return unique;
+}
+
+function shuffleAnswersForQuestion(question) {
+  const options = question.answers.map((answer, index) => ({
+    answer,
+    isCorrect: index === question.correct,
+  }));
+  const shuffledOptions = shuffleArray(options);
+
+  return {
+    ...question,
+    answers: shuffledOptions.map((o) => o.answer),
+    correct: shuffledOptions.findIndex((o) => o.isCorrect),
+  };
+}
+
 // Start quiz
 function startQuiz() {
-  // Combine all 30 questions and pick TOTAL_QUESTIONS at random
+  // Combine, remove duplicates, then randomize questions + answers for this round.
   const allQuestions = [...quizQuestions, ...additionalQuestions];
-  currentQuestions = shuffleArray(allQuestions).slice(0, TOTAL_QUESTIONS);
+  const uniqueQuestions = deduplicateQuestions(allQuestions);
+  const preparedQuestions = uniqueQuestions.map(shuffleAnswersForQuestion);
+
+  totalQuestionsInRound = Math.min(TOTAL_QUESTIONS, preparedQuestions.length);
+  currentQuestions = shuffleArray(preparedQuestions).slice(0, totalQuestionsInRound);
+
   currentQuestion = 0;
   correctAnswers = 0;
   wrongAnswers = 0;
@@ -1255,9 +1291,9 @@ function showQuestion() {
   const question = currentQuestions[currentQuestion];
   document.getElementById("question").textContent = question.question;
   document.getElementById("progress").textContent =
-    `${currentQuestion + 1}/${TOTAL_QUESTIONS}`;
+    `${currentQuestion + 1}/${totalQuestionsInRound}`;
   document.getElementById("progress-bar").style.width =
-    `${((currentQuestion + 1) / TOTAL_QUESTIONS) * 100}%`;
+    `${((currentQuestion + 1) / totalQuestionsInRound) * 100}%`;
 
   const container = document.getElementById("answers-container");
   container.innerHTML = "";
