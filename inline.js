@@ -28,7 +28,7 @@ function inlineAssetsInHtml(htmlPath) {
 
   // Inline CSS
   html = html.replace(
-    /<link rel="stylesheet" href="./(.+?\.css)"[^>]*>/g,
+    /<link rel="stylesheet" href="(.+?\.css)"[^>]*>/g,
     (match, cssPath) => {
       const fullPath = resolveAsset(htmlDir, cssPath);
       if (fullPath) {
