@@ -101,7 +101,7 @@ function createLeaderboardRow(entry, index, currentUser) {
   tr.innerHTML = `
     <td class="p-2 border font-semibold">${medal}</td>
     <td class="p-2 border">${entry.username}${isCurrentUser ? " (Bạn)" : ""}</td>
-    <td class="p-2 border text-center font-semibold">${correctVal}/25</td>
+    <td class="p-2 border text-center font-semibold">${correctVal}/15</td>
     <td class="p-2 border text-center">${timeVal}</td>
     <td class="p-2 border text-gray-500">${entry.date || ""}</td>
   `;

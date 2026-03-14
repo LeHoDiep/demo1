@@ -508,7 +508,7 @@ renderTeamCarousel();
   });
 })();
 
-// Smooth scroll for About me link
+// Smooth scroll for Giới thiệu link
 document.querySelectorAll('a[href="./#about-me"]').forEach(function (link) {
   link.addEventListener("click", function (e) {
     e.preventDefault();
